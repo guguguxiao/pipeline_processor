@@ -16,11 +16,96 @@ module PC(
          input                 rst,
          input              stallF,
          input     [`WORD_WIDTH] npc,
-         output reg[`WORD_WIDTH]  pc,
+         output reg[`WORD_WIDTH]  pc
        );
 ```
 
+#### alu
+```
+module Alu(
+    input [`ALUSIZE] aluCodeE,
+    input [`WORD_WIDTH]    SrcA,
+    input [`WORD_WIDTH]    SrcB,
+    
+    output [`WORD_WIDTH]   aluOutE
+    );
+```
+#### forward_unit
+```
+module forward_unit(
+    input [`REGSIZE] rsD,
+    input [`REGSIZE] rtD,
+    
+    input [`REGSIZE] rsE,
+    input [`REGSIZE] rtE,
 
+    input [`REGSIZE] writeRegA,
+    input [`REGSIZE] writeRegW,
+    
+    input Regfile_weA,
+    input Regfile_weW,
+
+    output forwardAD,
+    output forwardBD,
+    output [1:0]forwardAE,
+    output [1:0]forwardBE,
+    
+    );
+```
+#### Execute_AccessMem
+```
+module Execute_AccessMem(
+    input       clk,
+    input       rst,
+
+    input     Regfile_weE,
+    input     DataMem_weE,
+    input     memToRegE,
+    input       [`REGSIZE]  writeRegE,
+    input       [`WORD_WIDTH]   aluOutE,
+    input       [`WORD_WIDTH]writeDataE,
+    input       [`REGSIZE]       rdE, 
+    input                     flushA,
+    output reg             Regfile_weA,
+    output reg             DataMem_weA,
+    output reg             memToRegA,
+    output reg [`REGSIZE]  writeRegA,
+    
+    output reg [`WORD_WIDTH]   aluOutA,
+    output reg [`WORD_WIDTH] writeDataA,
+    output reg [`REGSIZE]        rdA    
+);
+```
+#### DataMem
+```
+module DataMem(
+    input                    clk,
+    input             DataMem_we,
+    input [`WORD_WIDTH]     addr,
+    input [`WORD_WIDTH]writeData,
+    output[`WORD_WIDTH] readData
+    );
+```
+
+### AccessMem_Writeback
+```
+module AccessMem_Writeback(
+    input       clk,
+    input       rst,
+    input     memToRegA,
+    input     Regfile_weA,
+    input       [`WORD_WIDTH] readDataA,
+    input       [`WORD_WIDTH]   aluOutA,
+    input       [`REGSIZE]  writeRegA,
+    
+    output reg              memToRegW,
+    output reg              Regfile_weW,
+    output reg [`WORD_WIDTH]    aluOutW,
+    output reg [`WORD_WIDTH]  readDataW,
+    output reg  [`REGSIZE]  writeRegW
+    
+);
+```
 ## 支持指令
 ### 算术运算指令(7条)
 - ADDU rd, rs, rt  GPR[rd] ← GPR[rs] + GPR[rt] 
