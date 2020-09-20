@@ -27,7 +27,6 @@ module Alu(
     assign slt_res=((SrcA[31] == 1'b1 && SrcB[31] == 1'b0 ) || (SrcA[31] == 1'b1 && SrcB[31] == 1'b1 && SrcA > SrcB) || (SrcA[31] == 1'b0 && SrcB[31] == 1'b0 && SrcA < SrcB))?
      32'h00000001: `ZEROWORD;
     assign sltu_res=({1'b0,SrcA} < {1'b0,SrcB}) ? 32'h00000001:`ZEROWORD;
-    assign 
     
     
     assign aluOutE = (aluOpE ==`ALU_ADD) ? and_res
