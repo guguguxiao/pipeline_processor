@@ -1,5 +1,24 @@
 # pipeline_processor
-## 佛祖保佑 准时完成
+
+## 流水线阶段
+
+IF(F) -> IF/ID(D) -> ID -> ID/EXE(E) -> EXE -> EXE/ME(M) -> ME -> ME/WB(W) -> WB
+
+## 接口设计
+
+
+### IF模块
+
+#### pc
+```
+module PC(
+         input                 clk,
+         input                 rst,
+         input              stallF,
+         input     [`WORD_WIDTH] npc,
+         output reg[`WORD_WIDTH]  pc,
+       );
+```
 
 
 ## 支持指令
@@ -49,5 +68,7 @@
 ### 访存指令（2条）
 - LW rt, offset(base)
 - SW rt, offset(base)
+
+
 
 
