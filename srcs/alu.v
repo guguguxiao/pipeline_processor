@@ -25,11 +25,11 @@ module Alu(
     assign or_res=SrcA | SrcB;
     assign eqb_res=SrcA;
     assign slt_res=((SrcA[31] == 1'b1 && SrcB[31] == 1'b0 ) || (SrcA[31] == 1'b1 && SrcB[31] == 1'b1 && SrcA > SrcB) || (SrcA[31] == 1'b0 && SrcB[31] == 1'b0 && SrcA < SrcB))?
-     32'h00000001: `ZEROWORD;
-    assign sltu_res=({1'b0,SrcA} < {1'b0,SrcB}) ? 32'h00000001:`ZEROWORD;
+     32'h00000001: `ZERO_WORD;
+    assign sltu_res=({1'b0,SrcA} < {1'b0,SrcB}) ? 32'h00000001:`ZERO_WORD;
     assign 
     
-    
+    // FIXME:该宏定义与头文件中不匹配！
     assign aluOutE = (aluOpE ==`ALU_ADD) ? and_res
                    : (aluOpE ==`ALU_SUB) ? sub_res
                    : (aluOpE ==`ALU_ADD) ? add_res

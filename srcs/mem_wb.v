@@ -15,8 +15,8 @@ module mem_wb(
     always @(posedge clk)begin
         if(rst)begin
             Regfile_weW<= 1'b0;
-            aluOutW <= `ZEROWORD;
-            readDataW <= `ZEROWORD;
+            aluOutW <= `ZERO_WORD;
+            readDataW <= `ZERO_WORD;
             wirteRegAddrW <= 5'b00000;
         end else begin
             Regfile_weW <= Regfile_weM;
