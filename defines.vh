@@ -1,7 +1,7 @@
 `define WORD_WIDTH 31:0
 `define REG_WIDTH 7:0
-`define REG_SIZE 4:0
-`define ALU_OP_SIZE 4:0
+`define REGSIZE 4:0
+`define ALUSIZE 4:0
 
 `define EXP_PC 32'h00000040
 `define PCBASE 32'h00000000
