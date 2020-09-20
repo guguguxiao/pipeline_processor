@@ -15,6 +15,7 @@ module control_unit(
          output wire                        aluSrc_muxD,
          output wire[`REG_SRC_LENGTH]       regSrc_muxD,
          output wire[`REG_DST_LENGTH]       regDst_muxD,
+         output wire                        memToRegD // 是否为从内存加载到寄存器中的指令
        );
 
 

@@ -16,6 +16,7 @@ module id_ex(
          input wire                         aluSrc_muxD,
          input wire[`REG_SRC_LENGTH]        regSrc_muxD,
          input wire[`REG_DST_LENGTH]        regDst_muxD,
+         input                              memToRegD,
          input [`WORD_WIDTH]                readData1D,
          input [`WORD_WIDTH]                readData2D,
          input                              flushE,
@@ -32,6 +33,7 @@ module id_ex(
          output wire                        aluSrc_muxE,
          output wire[`REG_SRC_LENGTH]       regSrc_muxE,
          output wire[`REG_DST_LENGTH]       regDst_muxE,
+         output                             memToRegE,
          output [`WORD_WIDTH]               readData1E,
          output [`WORD_WIDTH]               readData2E,
        );
@@ -52,6 +54,7 @@ always @(posedge clk)
         aluSrc_muxE <= 1'b0;
         regSrc_muxE <= 2'b00;
         regDst_muxE <= 2'b00;
+        memToRegE <= 1'b0;
         readData1E <= `ZERO_WORD;
         readData2E<= `ZERO_WORD;
       end
@@ -69,6 +72,7 @@ always @(posedge clk)
         aluSrc_muxE <= aluSrc_muxD;
         regSrc_muxE <= regSrc_muxD;
         regDst_muxE <= regDst_muxD;
+        memToRegE <= memToRegD;
         readData1E <= readData1D;
         readData2E <= readData2D;
       end

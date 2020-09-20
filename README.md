@@ -82,6 +82,7 @@ module control_unit(
          output wire                        aluSrc_muxD,
          output wire[`REG_SRC_LENGTH]       regSrc_muxD,
          output wire[`REG_DST_LENGTH]       regDst_muxD,
+         output wire                        memToRegD // 是否为从内存加载到寄存器中的指令
        );
 ```
 
@@ -121,6 +122,7 @@ module id_ex(
          input wire                         aluSrc_muxD,
          input wire[`REG_SRC_LENGTH]        regSrc_muxD,
          input wire[`REG_DST_LENGTH]        regDst_muxD,
+         input                              memToRegD,
          input [`WORD_WIDTH]                readData1D,
          input [`WORD_WIDTH]                readData2D,
          input                              flushE,
@@ -137,6 +139,7 @@ module id_ex(
          output wire                        aluSrc_muxE,
          output wire[`REG_SRC_LENGTH]       regSrc_muxE,
          output wire[`REG_DST_LENGTH]       regDst_muxE,
+         output                             memToRegE,
          output [`WORD_WIDTH]               readData1E,
          output [`WORD_WIDTH]               readData2E,
        );
@@ -145,26 +148,27 @@ module id_ex(
 ### Stall Unit
 ```
 module stall_unit(
-         input [`REG_SIZE] rsD,
-         input [`REG_SIZE] rtD,
+         input [`REG_SIZE]  rsD,
+         input [`REG_SIZE]  rtD,
 
-         input [`REG_SIZE] rsE,
-         input [`REG_SIZE] rtE,
-    
-         input [`REG_SIZE] wirteRegAddrE,
-         input [`REG_SIZE] wirteRegAddrM,
-         input [`REG_SIZE] wirteRegAddrW,
-    
-         input Regfile_weE,
-         input Regfile_weM,
-         input Regfile_weW,
+         input [`REG_SIZE]  rsE,
+         input [`REG_SIZE]  rtE,
 
-         output stallF,
-         output stallD,
-    
-         output flushD,
-         output flushE,
-         output flushF
+         input [`REG_SIZE]  wirteRegAddrE,
+         input [`REG_SIZE]  wirteRegAddrM,
+         input [`REG_SIZE]  wirteRegAddrW,
+
+         input              Regfile_weE,
+         input              Regfile_weM,
+         input              Regfile_weW,
+         input              memToRegE;
+
+         output             stallF,
+         output             stallD,
+
+         output             flushD,
+         output             flushE,
+         output             flushF
        );
 ```
 ### EXE
