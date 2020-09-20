@@ -1,10 +1,10 @@
 `timescale 1ns / 1ps
 `include "defines.vh"
 module PC(
-         input                 clk,
-         input                 rst,
-         input            installF,
-         input     [`WORD_WIDTH] npc,
+         input                    clk,
+         input                    rst,
+         input                    stallF,
+         input     [`WORD_WIDTH]  npc,
          output reg[`WORD_WIDTH]  pc,
        );
 
@@ -12,9 +12,9 @@ always @(posedge clk)
   begin
     if(rst)
       begin
-        pc <= `PCBASE;
+        pc <= `PC_BASE;
       end
-    else if(installF == 1'b1)
+    else if(stallF == 1'b1)
       begin
         pc <= pc;
       end
@@ -24,5 +24,4 @@ always @(posedge clk)
       end
   end
 
-assign exceptionF = (pc[1:0] == 2'b00) ? 9'h000:9'h002;
 endmodule
