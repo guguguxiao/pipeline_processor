@@ -4,8 +4,8 @@ module PC(
          input                 clk,
          input                 rst,
          input            installF,
-         input     [`WORDSIZE] npc,
-         output reg[`WORDSIZE]  pc,
+         input     [`WORD_WIDTH] npc,
+         output reg[`WORD_WIDTH]  pc,
        );
 
 always @(posedge clk)
