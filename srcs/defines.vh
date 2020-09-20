@@ -1,13 +1,25 @@
 `define WORD_WIDTH 31:0
-`define REG_WIDTH 7:0
+`define BYTE_WIDTH 7:0
 `define REG_SIZE 4:0
 `define ALU_OP_LENGTH 4:0
 
+`define MAX_INSTR_NUM 255:0 // 最大指令条数
+
 `define EXP_PC 32'h00000040
-`define PCBASE 32'h00000000
+`define PC_BASE 32'h00000000
 `define ZEROWORD 32'h00000000
 `define RAMLINE 1048576
 `define DATARAMLINE 4194304
+
+// 指令各部分
+`define OP       31:26
+`define FUNC     5:0
+`define RS       25:21
+`define RT       20:16
+`define IMM      15:0
+`define RD       15:11
+`define INSTR_INDEX 25:0
+
 
 // opcode 
 `define OP_ZEROS 6'b000000
@@ -38,6 +50,7 @@
 `define OP_LUI 6'b001111
 `define OP_ANDI 6'b001100
 `define OP_CP0 6'b010000
+
 // funccode 
 `define FUNC_XOR 6'b100110
 `define FUNC_ADD 6'b100000
@@ -56,6 +69,7 @@
 `define FUNC_NOR 6'b100111
 `define FUNC_OR 6'b100101
 `define FUNC_XOR 6'b100110
+
 // rtcode
 `define RT_BGEZ 5'b00001
 `define RT_BGTZ 5'b00000
