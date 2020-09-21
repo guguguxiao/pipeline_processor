@@ -79,7 +79,7 @@ module control_unit(
          output wire[`EXT_OP_LENGTH]        extOp,
          output wire[`NPC_OP_LENGTH]        npcOp,
          output wire[`ALU_OP_LENGTH]        aluOpD,
-         output wire                        aluSrc_muxD,
+         output wire                        alusrc2_muxD,
          output wire[`REG_SRC_LENGTH]       regSrc_muxD,
          output wire[`REG_DST_LENGTH]       regDst_muxD,
          output wire                        memToRegD // 是否为从内存加载到寄存器中的指令
@@ -119,7 +119,7 @@ module id_ex(
          input wire                         DataMem_weD,
          input wire[`EXT_OP_LENGTH]         extOp,
          input wire[`ALU_OP_LENGTH]         aluOpD,
-         input wire                         aluSrc_muxD,
+         input wire                         alusrc2_muxD,
          input wire[`REG_SRC_LENGTH]        regSrc_muxD,
          input wire[`REG_DST_LENGTH]        regDst_muxD,
          input                              memToRegD,
@@ -134,9 +134,9 @@ module id_ex(
          output [4:0]                       saE,
          output wire                        Regfile_weE,
          output wire                        DataMem_weE,
-         output wire[`EXT_OP_LENGTH]        extOE,
+         output wire[`EXT_OP_LENGTH]        extOP,
          output wire[`ALU_OP_LENGTH]        aluOpE,
-         output wire                        aluSrc_muxE,
+         output wire                        alusrc2_muxE,
          output wire[`REG_SRC_LENGTH]       regSrc_muxE,
          output wire[`REG_DST_LENGTH]       regDst_muxE,
          output                             memToRegE,
@@ -154,9 +154,9 @@ module stall_unit(
          input [`REG_SIZE]  rsE,
          input [`REG_SIZE]  rtE,
 
-         input [`REG_SIZE]  wirteRegAddrE,
-         input [`REG_SIZE]  wirteRegAddrM,
-         input [`REG_SIZE]  wirteRegAddrW,
+         input [`REG_SIZE]  writeRegAddrE,
+         input [`REG_SIZE]  writeRegAddrM,
+         input [`REG_SIZE]  writeRegAddrW,
 
          input              Regfile_weE,
          input              Regfile_weM,
@@ -191,8 +191,8 @@ module forward_unit(
     input [`REG_SIZE] rsE,
     input [`REG_SIZE] rtE,
 
-    input [`REG_SIZE] wirteRegAddrM,
-    input [`REG_SIZE] wirteRegAddrW,
+    input [`REG_SIZE] writeRegAddrM,
+    input [`REG_SIZE] writeRegAddrW,
     
     input Regfile_weM,
     input Regfile_weW,
@@ -211,14 +211,14 @@ module ex_mem(
     input       rst,
     input     Regfile_weE,
     input     DataMem_weE,
-    input       [`REG_SIZE]  wirteRegAddrE,
+    input       [`REG_SIZE]  writeRegAddrE,
     input       [`WORD_WIDTH]   aluOutE,
     input       [`WORD_WIDTH]writeDataE,
-    input       [`REG_SIZE]       rdE, 
+
     
     output reg             Regfile_weM,
     output reg             DataMem_weM,
-    output reg [`REG_SIZE]  wirteRegAddrM,
+    output reg [`REG_SIZE]  writeRegAddrM,
     
     output reg [`WORD_WIDTH]   aluOutM,
     output reg [`WORD_WIDTH] writeDataM,
@@ -244,12 +244,12 @@ module mem_wb(
     input     Regfile_weM,
     input       [`WORD_WIDTH] readDataM,
     input       [`WORD_WIDTH]   aluOutM,
-    input       [`REG_SIZE]  wirteRegAddrM,
+    input       [`REG_SIZE]  writeRegAddrM,
     
     output reg              Regfile_weW,
     output reg [`WORD_WIDTH]    aluOutW,
     output reg [`WORD_WIDTH]  readDataW,
-    output reg  [`REG_SIZE]  wirteRegAddrW
+    output reg  [`REG_SIZE]  writeRegAddrW
     
 );
 ```

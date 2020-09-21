@@ -12,7 +12,7 @@ module control_unit(
          output wire[`EXT_OP_LENGTH]        extOp,
          output wire[`NPC_OP_LENGTH]        npcOp,
          output wire[`ALU_OP_LENGTH]        aluOpD,
-         output wire                        aluSrc_muxD,
+         output wire                        alusrc2_muxD,
          output wire[`REG_SRC_LENGTH]       regSrc_muxD,
          output wire[`REG_DST_LENGTH]       regDst_muxD,
          output wire                        memToRegD // 是否为从内存加载到寄存器中的指令
