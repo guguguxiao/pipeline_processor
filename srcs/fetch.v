@@ -2,13 +2,13 @@
 `include "defines.vh"
 
 module fetch (
-         input                    clk,
-         input                    rst,
-         input                    stallF,
-         input [`WORD_WIDTH]      npc,
+         input                      clk,
+         input                      rst,
+         input                      stallF,
+         input [`WORD_WIDTH]        npc,
 
-         output reg[`WORD_WIDTH]  pcD,
-         output wire[`WORD_WIDTH] instrF
+         output reg[`WORD_WIDTH]    pcF,
+         output wire [`WORD_WIDTH]  instrF
        )
          ;
 
@@ -31,6 +31,6 @@ instruction_memory instruction_memory(
                    );
 
 // 传给模块id的pc
-assign pcD = pc;
+assign pcF = pc;
 
 endmodule

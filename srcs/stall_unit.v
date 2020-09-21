@@ -15,7 +15,7 @@ module stall_unit(
          input              Regfile_weE,
          input              Regfile_weM,
          input              Regfile_weW,
-         input              memToRegE;
+         input              memToRegE,
 
          output             stallF,
          output             stallD,
@@ -32,10 +32,10 @@ assign lw_stall = (rsD == rtE || rtD == rtE) && memToRegE && (rtE != 5'b00000);
 
 // 跳转的时候与上一条语句发生数据hazard，此时要stall一个周期
 assign branch_stall = ((Regfile_weE) && ((writeRegAddrE == rsD) || (writeRegAddrE == rtD)) && writeRegAddrE != 5'b00000)
-       || ((memToRegE) && ((writeRegAddrA == rsD) || (writeRegAddrA == rtD)) && writeRegAddrE != 5'b00000);
+       || ((memToRegE) && ((writeRegAddrM == rsD) || (writeRegAddrM == rtD)) && writeRegAddrE != 5'b00000);
 
-assign installF = lw_stall || branch_stall;
-assign installD = lw_stall || branch_stall;
+assign stallF = lw_stall || branch_stall;
+assign stallD = lw_stall || branch_stall;
 
 assign flushE = lw_stall || branch_stall;
 

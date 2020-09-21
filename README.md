@@ -22,9 +22,9 @@ module pc(
 #### Instruction Memory
 ```
 module instruction_memory(
-         input  wire[11:2] instr_addr, // 忽略了PC前面的0x004
+         input  wire [11:2] instr_addr, // 忽略了PC前面的0x004
 
-         output wire[`WORD_WIDTH] instr
+         output wire [`WORD_WIDTH] instr
        );
 ```
 
@@ -46,21 +46,21 @@ module if_id(
 #### npc
 ```
 module npc(
-         input  wire[`WORD_WIDTH]                  pc,
-         input  wire[15:0]                  imm16,     // 16 bit immediate
-         input  wire[25:0]                  imm26,     // 26 bit immediate
+         input  wire [`WORD_WIDTH]                  pc,
+         input  wire [15:0]                  imm16,     // 16 bit immediate
+         input  wire [25:0]                  imm26,     // 26 bit immediate
 
-         input  wire[`NPC_OP_LENGTH] npcOp, // NPC control signal
+         input  wire [`NPC_OP_LENGTH] npcOp, // NPC control signal
     
-         output wire[`WORD_WIDTH]                  npc,       // next program counter
+         output wire [`WORD_WIDTH]                  npc,       // next program counter
        );
 ```
 
 #### Branch Judge
 ```
 module branch_judge(
-         input  wire[`WORD_WIDTH]   reg1_data,
-         input  wire[`WORD_WIDTH]   reg2_data,
+         input  wire [`WORD_WIDTH]   reg1_data,
+         input  wire [`WORD_WIDTH]   reg2_data,
 
          output wire                isRsRtEq       // rs rt是否相等
        );
@@ -70,18 +70,18 @@ module branch_judge(
 ```
 module control_unit(
          input wire                         rst,
-         input wire[5:0]                    opcode, // Instruction opcode
-         input wire[5:0]                    func,   // R-Type instruction function
+         input wire [5:0]                    opcode, // Instruction opcode
+         input wire [5:0]                    func,   // R-Type instruction function
          input wire                         isRsRtEq,
 
          output wire                        Regfile_weD,
          output wire                        DataMem_weD,
-         output wire[`EXT_OP_LENGTH]        extOp,
-         output wire[`NPC_OP_LENGTH]        npcOp,
-         output wire[`ALU_OP_LENGTH]        aluOpD,
+         output wire [`EXT_OP_LENGTH]        extOp,
+         output wire [`NPC_OP_LENGTH]        npcOp,
+         output wire [`ALU_OP_LENGTH]        aluOpD,
          output wire                        aluSrc2_muxD,
-         output wire[`REG_SRC_LENGTH]       regSrc_muxD,
-         output wire[`REG_DST_LENGTH]       regDst_muxD,
+         output wire [`REG_SRC_LENGTH]       regSrc_muxD,
+         output wire [`REG_DST_LENGTH]       regDst_muxD,
          output wire                        memToRegD // 是否为从内存加载到寄存器中的指令
        );
 ```
@@ -117,11 +117,11 @@ module id_ex(
          input [4:0]                        saD,
          input wire                         Regfile_weD,
          input wire                         DataMem_weD,
-         input wire[`EXT_OP_LENGTH]         extOp,
-         input wire[`ALU_OP_LENGTH]         aluOpD,
+         input wire [`EXT_OP_LENGTH]         extOp,
+         input wire [`ALU_OP_LENGTH]         aluOpD,
          input wire                         aluSrc2_muxD,
-         input wire[`REG_SRC_LENGTH]        regSrc_muxD,
-         input wire[`REG_DST_LENGTH]        regDst_muxD,
+         input wire [`REG_SRC_LENGTH]        regSrc_muxD,
+         input wire [`REG_DST_LENGTH]        regDst_muxD,
          input [`WORD_WIDTH]                readData1D,
          input [`WORD_WIDTH]                readData2D,
          input                              flushE,
@@ -133,11 +133,11 @@ module id_ex(
          output [4:0]                       saE,
          output wire                        Regfile_weE,
          output wire                        DataMem_weE,
-         output wire[`EXT_OP_LENGTH]        extOp,
-         output wire[`ALU_OP_LENGTH]        aluOpE,
+         output wire [`EXT_OP_LENGTH]        extOp,
+         output wire [`ALU_OP_LENGTH]        aluOpE,
          output wire                        aluSrc2_muxE,
-         output wire[`REG_SRC_LENGTH]       regSrc_muxE,
-         output wire[`REG_DST_LENGTH]       regDst_muxE,
+         output wire [`REG_SRC_LENGTH]       regSrc_muxE,
+         output wire [`REG_DST_LENGTH]       regDst_muxE,
          output [`WORD_WIDTH]               readData1E,
          output [`WORD_WIDTH]               readData2E,
        );
@@ -172,7 +172,7 @@ module stall_unit(
 ### EXE
 #### alu
 ```
-module Alu(
+module ALU(
     input [`ALU_OP_LENGTH] aluOpE,
     input [`WORD_WIDTH]    SrcA,
     input [`WORD_WIDTH]    SrcB,

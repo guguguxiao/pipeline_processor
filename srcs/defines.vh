@@ -1,9 +1,9 @@
-`define WORD_WIDTH `WORD_WIDTH
+`define WORD_WIDTH 31:0
 `define ZERO_WORD 32'h00000000
 `define BYTE_WIDTH 7:0
 `define REG_SIZE 4:0
 
-`define INSTR_SIZE 255:0 // 最大指令条数
+`define INSTR_SIZE 2048:0 // 最大指令条数
 
 `define EXP_PC 32'h00000040
 `define PC_BASE 32'h00000000
@@ -19,6 +19,7 @@
 `define RD       15:11
 `define INSTR_INDEX 25:0
 `define SA          10:6
+
 // 控制信号
 
 // 跳转控制信号
@@ -33,9 +34,13 @@
 `define EXT_OP_UNSIGNED 2'b01     // 无符号
 `define EXT_OP_SIGNED   2'b10     // 有符号
 
+// ALU第一个操作数的选择信号
+`define ALU_SRC1_MUX_RS     1'b0       // ALU source: register file
+`define ALU_SRC1_MUX_SA     1'b1       // ALU Source: immediate
+
 // ALU第二个操作数的选择信号
-`define ALU_SRC_REG     1'b0       // ALU source: register file
-`define ALU_SRC_IMM     1'b1       // ALU Source: immediate
+`define ALU_SRC2_MUX_RT     1'b0       // ALU source: register file
+`define ALU_SRC2_MUX_IMM     1'b1       // ALU Source: immediate
 
 // 写回寄存器的数值来源
 `define REG_SRC_LENGTH  1:0          // Length of signal RegSrc
@@ -99,15 +104,8 @@
 `define FUNC_OR 6'b100101
 `define FUNC_XOR 6'b100110
 
-// rtcode
-`define RT_BGEZ 5'b00001
-`define RT_BGTZ 5'b00000
-`define RT_BLEZ 5'b00000
-`define RT_BLTZ 5'b00000
-`define RT_BGEZAL 5'b10001
-`define RT_BLTZAL 5'b10000
-
-// alu code
+// ALU操作码
+`define ALU_OP_LENGTH 4:0
 `define ALU_XOR 5'b00001
 `define ALU_EQB 5'b00010
 `define ALU_ADD 5'b00100

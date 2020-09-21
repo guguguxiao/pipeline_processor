@@ -7,7 +7,7 @@ module id (
 
          // 其他流水线提供的信号
          input  [`WORD_WIDTH]   instrD,
-         input  [`WORD_WIDTH]   pcD,
+         input  [`WORD_WIDTH]   pcF,
 
          input                  Regfile_weW,
          input  [`WORD_WIDTH]   memOutM,
@@ -19,15 +19,18 @@ module id (
          input               forwardAD,
          input               forwardBD,
 
+         output wire [`WORD_WIDTH]          npc,
+
          // CU输出
          output wire                        Regfile_weD,
          output wire                        DataMem_weD,
-         output wire[`EXT_OP_LENGTH]        extOpD,
-         output wire[`ALU_OP_LENGTH]        aluOpD,
+         output wire [`EXT_OP_LENGTH]        extOpD,
+         output wire [`ALU_OP_LENGTH]        aluOpD,
+         output wire                        aluSrc1_muxD,
          output wire                        aluSrc2_muxD,
-         output wire[`REG_SRC_LENGTH]       regSrc_muxD,
-         output wire[`REG_DST_LENGTH]       regDst_muxD,
-         output wire                        memToRegD // 是否为从内存加载到寄存器中的指令
+         output wire [`REG_SRC_LENGTH]       regSrc_muxD,
+         output wire [`REG_DST_LENGTH]       regDst_muxD,
+         output wire                        memToRegD, // 是否为从内存加载到寄存器中的指令
 
          // 寄存器堆输出
          output [`WORD_WIDTH]       readData1D,
@@ -63,7 +66,7 @@ register_file register_file (
                 .clk(clk),
                 .rs(rs),
                 .rt(rt),
-                .Regfile_we(Regfile_weW),
+                .Regfile_weW(Regfile_weW),
                 .writeRegAddrW(writeRegAddrW),
                 .writeDataW(memOutM),
 
@@ -76,8 +79,8 @@ assign readData2D = readData2;
 
 wire [`NPC_OP_LENGTH] npcOp;
 
-npc npc(
-      .pc(pc),
+NPC NPC(
+      .pc(pcF),
       .imm16(imm16),
       .imm26(imm26),
       .npcOp(npcOp),
@@ -88,8 +91,8 @@ npc npc(
 wire isRsRtEq;
 
 // 数据进入branch前进行的前递
-assign reg1_data = (forwardAD == 1'b1) ? aluOutM : readData1;
-assign reg2_data = (forwardBD == 1'b1) ? aluOutM : readData2;
+wire [`WORD_WIDTH] reg1_data = (forwardAD == 1'b1) ? aluOutM : readData1;
+wire [`WORD_WIDTH] reg2_data = (forwardBD == 1'b1) ? aluOutM : readData2;
 
 branch_judge branch_judge(
                .reg1_data(reg1_data),
@@ -109,6 +112,7 @@ control_unit control_unit (
                .extOpD(extOpD),
                .npcOp(npcOp),
                .aluOpD(aluOpD),
+               .aluSrc1_muxD(aluSrc1_muxD),
                .aluSrc2_muxD(aluSrc2_muxD),
                .regSrc_muxD(regSrc_muxD),
                .regDst_muxD(regDst_muxD),
