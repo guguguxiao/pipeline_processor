@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 `include "defines.vh"
-module PC(
+module pc(
          input                    clk,
          input                    rst,
          input                    stallF,

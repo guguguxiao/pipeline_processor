@@ -1,13 +1,12 @@
-`define WORD_WIDTH 31:0
+`define WORD_WIDTH `WORD_WIDTH
+`define ZERO_WORD 32'h00000000
 `define BYTE_WIDTH 7:0
 `define REG_SIZE 4:0
-`define ALU_OP_LENGTH 4:0
 
-`define MAX_INSTR_NUM 255:0 // 最大指令条数
+`define INSTR_SIZE 255:0 // 最大指令条数
 
 `define EXP_PC 32'h00000040
 `define PC_BASE 32'h00000000
-`define ZEROWORD 32'h00000000
 `define RAMLINE 1048576
 `define DATARAMLINE 4194304
 
@@ -20,8 +19,60 @@
 `define RD       15:11
 `define INSTR_INDEX 25:0
 
+// 控制信号
 
-// opcode 
+// 跳转控制信号
+`define NPC_OP_LENGTH   1:0
+`define NPC_OP_DEFAULT  2'b00     // 默认下一条
+`define NPC_OP_JUMP     2'b01     // J
+`define NPC_OP_BRANCH   2'b10     // BEQ ...
+
+// 数字扩展控制信号
+`define EXT_OP_LENGTH   1:0       // Length of Signal ExtOp
+`define EXT_OP_DEFAULT  2'b00     // ExtOp default value
+`define EXT_OP_UNSIGNED 2'b01     // 无符号
+`define EXT_OP_SIGNED   2'b10     // 有符号
+
+// ALU第二个操作数的选择信号
+`define ALU_SRC_REG     1'b0       // ALU source: register file
+`define ALU_SRC_IMM     1'b1       // ALU Source: immediate
+
+// ALU控制信号
+`define ALU_OP_LENGTH   3:0        // Length of signal ALUOp
+`define ALU_OP_DEFAULT  4'b0000    // ALUOp default value
+`define ALU_OP_ADD      4'b0001    // ALU add
+`define ALU_OP_SUB      4'b0010    // ALU sub
+`define ALU_OP_SLT      4'b0011    // ALU slt
+`define ALU_OP_AND      4'b0100    // ALU and
+`define ALU_OP_OR       4'b0101    // ALU or
+`define ALU_OP_XOR      4'b0110    // ALU xor
+`define ALU_OP_NOR      4'b0111    // ALU nor
+`define ALU_OP_SLL      4'b1000    // ALU sll, with respect to sa
+`define ALU_OP_SRL      4'b1001    // ALU srl, with respect to sa
+`define ALU_OP_SRA      4'b1010    // ALU sra, with respect to sa
+`define ALU_OP_SLLV     4'b1011    // ALU sllv, with respect to rs
+`define ALU_OP_SRLV     4'b1100    // ALU srlv, with respect to rs
+`define ALU_OP_SRAV     4'b1101    // ALU srav, with respect to rs
+
+// 写回寄存器的数值来源
+`define REG_SRC_LENGTH  1:0          // Length of signal RegSrc
+`define REG_SRC_DEFAULT 2'b00     // Register default value
+`define REG_SRC_ALU     2'b01     // Register write source: ALU
+`define REG_SRC_MEM     2'b10     // Register write source: Data Memory
+
+// RegDst Control Signals
+`define REG_DST_LENGTH  1:0
+`define REG_DST_DEFAULT 2'b00      // Register write destination: default
+`define REG_DST_RT      2'b01      // Register write destination: rt
+`define REG_DST_RD      2'b10      // Register write destination: rd
+
+
+
+
+
+
+
+// opcode
 `define OP_ZEROS 6'b000000
 `define OP_ADDIU 6'b001001
 `define OP_ADDI 6'b001000
@@ -51,7 +102,7 @@
 `define OP_ANDI 6'b001100
 `define OP_CP0 6'b010000
 
-// funccode 
+// funccode
 `define FUNC_XOR 6'b100110
 `define FUNC_ADD 6'b100000
 `define FUNC_ADDU 6'b100001

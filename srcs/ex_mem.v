@@ -21,8 +21,8 @@ module ex_mem(
             Regfile_weM <= 1'b0;
             DataMem_weM <= 1'b0;
             wirteRegAddrM <= 5'b00000;
-            aluOutM <= `ZEROWORD;
-            writeDataM <= `ZEROWORD;
+            aluOutM <= `ZERO_WORD;
+            writeDataM <= `ZERO_WORD;
             rdM <= 5'b00000;
         end else begin
             Regfile_weM<=Regfile_weE;
