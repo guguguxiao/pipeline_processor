@@ -18,7 +18,7 @@
 `define IMM      15:0
 `define RD       15:11
 `define INSTR_INDEX 25:0
-
+`define SA          10:6
 // 控制信号
 
 // 跳转控制信号

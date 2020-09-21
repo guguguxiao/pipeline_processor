@@ -3,6 +3,7 @@
 module pc(
          input                    clk,
          input                    rst,
+         
          input                    stallF,
          input     [`WORD_WIDTH]  npc,
          output reg[`WORD_WIDTH]  pc,

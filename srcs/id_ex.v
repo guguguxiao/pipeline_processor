@@ -13,10 +13,10 @@ module id_ex(
          input wire                         DataMem_weD,
          input wire[`EXT_OP_LENGTH]         extOp,
          input wire[`ALU_OP_LENGTH]         aluOpD,
-         input wire                         aluSrc_muxD,
+         input wire                         aluSrc2_muxD,
          input wire[`REG_SRC_LENGTH]        regSrc_muxD,
          input wire[`REG_DST_LENGTH]        regDst_muxD,
-         input                              memToRegD,
+        //  input                              memToRegD,
          input [`WORD_WIDTH]                readData1D,
          input [`WORD_WIDTH]                readData2D,
          input                              flushE,
@@ -30,10 +30,10 @@ module id_ex(
          output wire                        DataMem_weE,
          output wire[`EXT_OP_LENGTH]        extOE,
          output wire[`ALU_OP_LENGTH]        aluOpE,
-         output wire                        aluSrc_muxE,
+         output wire                        aluSrc2_muxE,
          output wire[`REG_SRC_LENGTH]       regSrc_muxE,
          output wire[`REG_DST_LENGTH]       regDst_muxE,
-         output                             memToRegE,
+        //  output                             memToRegE,
          output [`WORD_WIDTH]               readData1E,
          output [`WORD_WIDTH]               readData2E,
        );
@@ -51,7 +51,7 @@ always @(posedge clk)
         DataMem_weE <= 1'b0;
         extOE <= 2'b00;
         aluOpE <= 4'h0;
-        aluSrc_muxE <= 1'b0;
+        aluSrc2_muxE <= 1'b0;
         regSrc_muxE <= 2'b00;
         regDst_muxE <= 2'b00;
         memToRegE <= 1'b0;
@@ -69,7 +69,7 @@ always @(posedge clk)
         DataMem_weE <= DataMem_weD;
         extOE <= extOD;
         aluOpE <= aluOpD;
-        aluSrc_muxE <= aluSrc_muxD;
+        aluSrc2_muxE <= aluSrc2_muxD;
         regSrc_muxE <= regSrc_muxD;
         regDst_muxE <= regDst_muxD;
         memToRegE <= memToRegD;

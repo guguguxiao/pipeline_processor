@@ -8,7 +8,7 @@ module if_id(
          input      [`WORD_WIDTH]   instrF,
          input                      stallD,
          input                      flushD,
-         output reg [`WORD_WIDTH]   instrD,
+         output reg [`WORD_WIDTH]   instrD
        );
 
 always @(posedge clk)

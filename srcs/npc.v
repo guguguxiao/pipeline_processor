@@ -8,7 +8,7 @@ module npc(
 
          input  wire[`NPC_OP_LENGTH]        npcOp,     // 跳转控制信号
 
-         output wire[`WORD_WIDTH]           npc,       // next program counter
+         output wire[`WORD_WIDTH]           npc       // next program counter
        );
 
 wire[`WORD_WIDTH] pc_4;
