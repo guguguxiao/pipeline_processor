@@ -15,7 +15,7 @@ module ex_mem(
     output reg [`REG_SIZE]  writeRegAddrM,
     
     output reg [`WORD_WIDTH]   aluOutM,
-    output reg [`WORD_WIDTH] writeDataM,
+    output reg [`WORD_WIDTH] writeDataM
   
 );
     always @(posedge clk)begin

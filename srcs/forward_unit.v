@@ -17,7 +17,7 @@ module forward_unit(
     output forwardAD,
     output forwardBD,
     output [1:0]forwardAE,
-    output [1:0]forwardBE,
+    output [1:0]forwardBE
     
     );
     assign forwardAD = (rsD != 5'b00000 && rsD == writeRegAddrM && Regfile_weM);

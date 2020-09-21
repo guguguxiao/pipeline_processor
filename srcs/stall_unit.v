@@ -21,8 +21,7 @@ module stall_unit(
          output             stallD,
 
          output             flushD,
-         output             flushE,
-         output             flushF
+         output             flushE
        );
 
 wire lw_stall;
@@ -39,3 +38,5 @@ assign installF = lw_stall || branch_stall;
 assign installD = lw_stall || branch_stall;
 
 assign flushE = lw_stall || branch_stall;
+
+endmodule

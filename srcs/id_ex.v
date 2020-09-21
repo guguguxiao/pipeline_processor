@@ -2,8 +2,8 @@
 `include "defines.vh"
 
 module id_ex(
-         input clk,
-         input rst,
+         input                              clk,
+         input                              rst,
          input [`REG_SIZE]                  rsD,
          input [`REG_SIZE]                  rtD,
          input [`REG_SIZE]                  rdD,
@@ -11,12 +11,12 @@ module id_ex(
          input [4:0]                        saD,
          input wire                         Regfile_weD,
          input wire                         DataMem_weD,
-         input wire[`EXT_OP_LENGTH]         extOp,
+         input wire[`EXT_OP_LENGTH]         extOpD,
          input wire[`ALU_OP_LENGTH]         aluOpD,
          input wire                         aluSrc2_muxD,
          input wire[`REG_SRC_LENGTH]        regSrc_muxD,
          input wire[`REG_DST_LENGTH]        regDst_muxD,
-        //  input                              memToRegD,
+          input                              memToRegD,
          input [`WORD_WIDTH]                readData1D,
          input [`WORD_WIDTH]                readData2D,
          input                              flushE,
@@ -28,14 +28,14 @@ module id_ex(
          output [4:0]                       saE,
          output wire                        Regfile_weE,
          output wire                        DataMem_weE,
-         output wire[`EXT_OP_LENGTH]        extOp,
+         output wire[`EXT_OP_LENGTH]        extOpE,
          output wire[`ALU_OP_LENGTH]        aluOpE,
          output wire                        aluSrc2_muxE,
          output wire[`REG_SRC_LENGTH]       regSrc_muxE,
          output wire[`REG_DST_LENGTH]       regDst_muxE,
-        //  output                             memToRegE,
+         output                             memToRegE,
          output [`WORD_WIDTH]               readData1E,
-         output [`WORD_WIDTH]               readData2E,
+         output [`WORD_WIDTH]               readData2E
        );
 
 always @(posedge clk)
@@ -49,7 +49,7 @@ always @(posedge clk)
         saE <= 5'b00000;
         Regfile_weE <= 1'b0;
         DataMem_weE <= 1'b0;
-        extOE <= 2'b00;
+        extOpE <= 2'b00;
         aluOpE <= 4'h0;
         aluSrc2_muxE <= 1'b0;
         regSrc_muxE <= 2'b00;
@@ -67,7 +67,7 @@ always @(posedge clk)
         saE <= saD;
         Regfile_weE <= Regfile_weD;
         DataMem_weE <= DataMem_weD;
-        extOE <= extOD;
+        extOpE <= extOpD;
         aluOpE <= aluOpD;
         aluSrc2_muxE <= aluSrc2_muxD;
         regSrc_muxE <= regSrc_muxD;
