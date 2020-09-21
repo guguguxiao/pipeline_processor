@@ -1,3 +1,6 @@
+`timescale 1ns / 1ps
+`include "defines.vh"
+
 module mem_wb(
     input       clk,
     input       rst,

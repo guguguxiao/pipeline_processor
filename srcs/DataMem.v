@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 `include "defines.vh"
 
-module DataMemmodule DataMem(
+module  DataMem(
     input                    clk,
     input             DataMem_we,
     input [`WORD_WIDTH]     addr,

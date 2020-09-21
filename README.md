@@ -133,7 +133,7 @@ module id_ex(
          output [4:0]                       saE,
          output wire                        Regfile_weE,
          output wire                        DataMem_weE,
-         output wire[`EXT_OP_LENGTH]        extOE,
+         output wire[`EXT_OP_LENGTH]        extOp,
          output wire[`ALU_OP_LENGTH]        aluOpE,
          output wire                        aluSrc2_muxE,
          output wire[`REG_SRC_LENGTH]       regSrc_muxE,
@@ -212,7 +212,7 @@ module ex_mem(
     input       [`REG_SIZE]  writeRegAddrE,
     input       [`WORD_WIDTH]   aluOutE,
     input       [`WORD_WIDTH]writeDataE,
-    input       [`REG_SIZE]       rdE, 
+
     
     output reg             Regfile_weM,
     output reg             DataMem_weM,

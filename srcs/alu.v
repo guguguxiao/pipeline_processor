@@ -1,3 +1,6 @@
+`timescale 1ns / 1ps
+`include "defines.vh"
+
 module Alu(
     input [`ALU_OP_LENGTH] aluOpE,
     input [`WORD_WIDTH]    SrcA,

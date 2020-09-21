@@ -1,3 +1,6 @@
+`timescale 1ns / 1ps
+`include "defines.vh"
+
 module forward_unit(
     input [`REG_SIZE] rsD,
     input [`REG_SIZE] rtD,
