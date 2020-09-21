@@ -1,21 +1,21 @@
 `timescale 1ns / 1ps
 `include "defines.vh"
 
-module if (
+module fetch (
          input                    clk,
          input                    rst,
          input                    stallF,
          input [`WORD_WIDTH]      npc,
 
          output reg[`WORD_WIDTH]  pcD,
-         output wire[`WORD_WIDTH] instr
+         output wire[`WORD_WIDTH] instrF
        )
          ;
 
 // if模块内部使用的pc线
 wire [`WORD_WIDTH] pc;
 
-pc pc(
+PC PC(
      .clk(clk),
      .rst(rst),
      .stallF(stallF),
@@ -27,7 +27,7 @@ pc pc(
 instruction_memory instruction_memory(
                      .instr_addr(pc),
 
-                     .instr(instr)
+                     .instr(instrF)
                    );
 
 // 传给模块id的pc
