@@ -12,10 +12,11 @@ module  DataMem(
 reg [7:0] data_ram[0:`DATARAMLINE-1];
 
 // 减去mars中的地址基址
+wire [`WORD_WIDTH] addr_offset;
 assign addr_offset = addr - `ADDR_BASE;
 
 // read data ram
-assign readData = {data_ram[addr_offset+3],data_ram[addr_offset+2],data_ram[addr_offset+1],data_ram[addr_offset]};
+assign readData = {data_ram[addr_offset+3], data_ram[addr_offset+2], data_ram[addr_offset+1], data_ram[addr_offset]};
 
 // write data ram
 always @(posedge clk)
