@@ -33,7 +33,10 @@ assign controlCode =
        (opcode == `OP_ZEROS && func == `FUNC_OR)?      15'b100010100001100 :
        (opcode == `OP_ORI)?                            15'b100010100101010 :
        (opcode == `OP_ZEROS && func == `FUNC_XOR)?     15'b100000010001100 :
-       (opcode == `OP_XORI)?                           15'b100000010101010:
+       (opcode == `OP_XORI)?                           15'b100000010101010 :
+
+       (opcode == `OP_SW)?                             15'b010001000100001 :
+       (opcode == `OP_LW)?                             15'b100001000110011 :
        15'b000000000000000;
 
 assign Regfile_weD=controlCode[14];

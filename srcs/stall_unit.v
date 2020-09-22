@@ -36,6 +36,6 @@ assign stallD = lw_stall || branch_stall;
 
 assign flushE = lw_stall || branch_stall;
 
-assign flushD = lw_stall || branch_stall;
+assign flushD = 1'b0;
 
 endmodule
