@@ -7,11 +7,11 @@ module fetch (
          input                      stallF,
          input [`WORD_WIDTH]        npc,
 
-         output reg[`WORD_WIDTH]    pcF,
-         output wire [`WORD_WIDTH]  instrF
+         output [`WORD_WIDTH]    pcF,
+         output [`WORD_WIDTH]  instrF
        );
 
-// ifæ¨¡å—å†…éƒ¨ä½¿ç”¨çš„pcçº¿
+// ifÄ£¿éÄÚ²¿Ê¹ÓÃµÄpcÏß
 wire [`WORD_WIDTH] pc;
 
 PC PC(
@@ -29,7 +29,7 @@ instruction_memory instruction_memory(
                      .instrF(instrF)
                    );
 
-// ä¼ ç»™æ¨¡å—idçš„pc
+// ´«¸øÄ£¿éidµÄpc
 assign pcF = pc;
 
 endmodule

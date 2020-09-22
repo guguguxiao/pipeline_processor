@@ -47,7 +47,7 @@ ALU ALU(
       .SrcB(data2),
       .aluOutE(aluOutE)
     );
-// å†™å¯„å­˜å™¨é€‰æ‹©
+// Ð´¼Ä´æÆ÷Ñ¡Ôñ
 assign writeRegAddrE = (regDst_muxE == `REG_DST_RT) ? rtE :
        (regDst_muxE == `REG_DST_RD) ? rdE:
        5'b00000;

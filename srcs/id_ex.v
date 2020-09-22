@@ -20,20 +20,20 @@ module id_ex(
          input [`WORD_WIDTH]                    readData2D,
          input                                  flushE,
 
-         output [`REG_SIZE]                     rsE,
-         output [`REG_SIZE]                     rtE,
-         output [`REG_SIZE]                     rdE,
-         output [15:0]                          imm16E,
-         output wire                            Regfile_weE,
-         output wire                            DataMem_weE,
-         output wire                            extOpE,
-         output wire [`ALU_OP_LENGTH]           aluOpE,
-         output wire                            aluSrc1_muxE,
-         output wire                            aluSrc2_muxE,
-         output wire [`REG_SRC_LENGTH]          regSrc_muxE,
-         output wire [`REG_DST_LENGTH]          regDst_muxE,
-         output [`WORD_WIDTH]                   readData1E,
-         output [`WORD_WIDTH]                   readData2E
+         output reg [`REG_SIZE]                     rsE,
+         output reg [`REG_SIZE]                     rtE,
+         output reg [`REG_SIZE]                     rdE,
+         output reg [15:0]                          imm16E,
+         output reg                             Regfile_weE,
+         output reg                             DataMem_weE,
+         output reg                             extOpE,
+         output reg  [`ALU_OP_LENGTH]           aluOpE,
+         output reg                             aluSrc1_muxE,
+         output reg                             aluSrc2_muxE,
+         output reg  [`REG_SRC_LENGTH]          regSrc_muxE,
+         output reg  [`REG_DST_LENGTH]          regDst_muxE,
+         output reg [`WORD_WIDTH]                   readData1E,
+         output reg [`WORD_WIDTH]                   readData2E
        );
 
 always @(posedge clk)

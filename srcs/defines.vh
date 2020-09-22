@@ -3,14 +3,14 @@
 `define BYTE_WIDTH 7:0
 `define REG_SIZE 4:0
 
-`define INSTR_SIZE 1023:0 // æœ€å¤§æŒ‡ä»¤æ¡æ•°
+`define INSTR_SIZE 1023:0 // ×î´óÖ¸ÁîÌõÊı
 
 `define EXP_PC 32'h00000040
 `define PC_BASE 32'h00000000
 `define RAMLINE 1048576
 `define DATARAMLINE 4194304
 
-// æŒ‡ä»¤å„éƒ¨åˆ†
+// Ö¸Áî¸÷²¿·Ö
 `define OP       31:26
 `define FUNC     5:0
 `define RS       25:21
@@ -20,27 +20,27 @@
 `define INSTR_INDEX 25:0
 `define SA          10:6
 
-// æ§åˆ¶ä¿¡å·
+// ¿ØÖÆĞÅºÅ
 
-// è·³è½¬æ§åˆ¶ä¿¡å·
+// Ìø×ª¿ØÖÆĞÅºÅ
 `define NPC_OP_LENGTH   1:0
-`define NPC_OP_DEFAULT  2'b00     // é»˜è®¤ä¸‹ä¸€æ¡
+`define NPC_OP_DEFAULT  2'b00     // Ä¬ÈÏÏÂÒ»Ìõ
 `define NPC_OP_JUMP     2'b01     // J
 `define NPC_OP_BRANCH   2'b10     // BEQ ...
 
-// æ•°å­—æ‰©å±•æ§åˆ¶ä¿¡å·
-`define EXT_OP_UNSIGNED 1'b0     // æ— ç¬¦å·
-`define EXT_OP_SIGNED   1'b1     // æœ‰ç¬¦å·
+// Êı×ÖÀ©Õ¹¿ØÖÆĞÅºÅ
+`define EXT_OP_UNSIGNED 1'b0     // ÎŞ·ûºÅ
+`define EXT_OP_SIGNED   1'b1     // ÓĞ·ûºÅ
 
-// ALUç¬¬ä¸€ä¸ªæ“ä½œæ•°çš„é€‰æ‹©ä¿¡å·
+// ALUµÚÒ»¸ö²Ù×÷ÊıµÄÑ¡ÔñĞÅºÅ
 `define ALU_SRC1_MUX_RS     1'b0       // ALU source: register file
 `define ALU_SRC1_MUX_SA     1'b1       // ALU Source: immediate
 
-// ALUç¬¬äºŒä¸ªæ“ä½œæ•°çš„é€‰æ‹©ä¿¡å·
+// ALUµÚ¶ş¸ö²Ù×÷ÊıµÄÑ¡ÔñĞÅºÅ
 `define ALU_SRC2_MUX_RT     1'b0       // ALU source: register file
 `define ALU_SRC2_MUX_IMM     1'b1       // ALU Source: immediate
 
-// å†™å›å¯„å­˜å™¨çš„æ•°å€¼æ¥æº
+// Ğ´»Ø¼Ä´æÆ÷µÄÊıÖµÀ´Ô´
 `define REG_SRC_LENGTH  1:0          // Length of signal RegSrc
 `define REG_SRC_DEFAULT 2'b00     // Register default value
 `define REG_SRC_ALU     2'b01     // Register write source: ALU
@@ -102,7 +102,7 @@
 `define FUNC_OR 6'b100101
 `define FUNC_XOR 6'b100110
 
-// ALUæ“ä½œç 
+// ALU²Ù×÷Âë
 `define ALU_OP_LENGTH       3:0
 `define ALU_XOR             4'b0001
 `define ALU_EQB             4'b0010

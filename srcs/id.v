@@ -5,7 +5,7 @@ module id (
          input       clk,
          input       rst,
 
-         // å…¶ä»–æµæ°´çº¿æä¾›çš„ä¿¡å·
+         // ÆäËûÁ÷Ë®ÏßÌá¹©µÄĞÅºÅ
          input  [`WORD_WIDTH]   instrD,
          input  [`WORD_WIDTH]   pcF,
 
@@ -15,13 +15,13 @@ module id (
 
          input  [`WORD_WIDTH]   aluOutM,
 
-         // æ•°æ®å‰é€’ä¿¡å·
+         // Êı¾İÇ°µİĞÅºÅ
          input               forwardAD,
          input               forwardBD,
 
          output wire [`WORD_WIDTH]          npc,
 
-         // CUè¾“å‡º
+         // CUÊä³ö
          output wire                        Regfile_weD,
          output wire                        DataMem_weD,
          output wire                        extOpD,
@@ -31,7 +31,7 @@ module id (
          output wire [`REG_SRC_LENGTH]       regSrc_muxD,
          output wire [`REG_DST_LENGTH]       regDst_muxD,
 
-         // å¯„å­˜å™¨å †è¾“å‡º
+         // ¼Ä´æÆ÷¶ÑÊä³ö
          output [`WORD_WIDTH]       readData1D,
          output [`WORD_WIDTH]       readData2D,
 
@@ -87,7 +87,7 @@ NPC NPC(
 
 wire isRsRtEq;
 
-// æ•°æ®è¿›å…¥branchå‰è¿›è¡Œçš„å‰é€’
+// Êı¾İ½øÈëbranchÇ°½øĞĞµÄÇ°µİ
 wire [`WORD_WIDTH] reg1_data = (forwardAD == 1'b1) ? aluOutM : readData1;
 wire [`WORD_WIDTH] reg2_data = (forwardBD == 1'b1) ? aluOutM : readData2;
 

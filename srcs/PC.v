@@ -6,7 +6,7 @@ module PC(
          
          input                    stallF,
          input     [`WORD_WIDTH]  npc,
-         output reg[`WORD_WIDTH]  pc
+         output reg  [`WORD_WIDTH]  pc
        );
 
 always @(posedge clk)

@@ -38,7 +38,7 @@ module control_unit(
 
     assign Regfile_weD=controlCode[15];
     assign DataMem_weD=controlCode[14];
-    // TODO:è¿˜è¦è€ƒè™‘isRsRteq
+    // TODO:»¹Òª¿¼ÂÇisRsRteq
     assign npcOp=controlCode[13:12];
     assign aluOpD=controlCode[11:8];
     assign aluSrc1_muxD=controlCode[7];

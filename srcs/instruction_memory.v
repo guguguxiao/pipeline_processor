@@ -2,7 +2,7 @@
 `include "defines.vh"
 
 module instruction_memory(
-         input  wire [11:2] instr_addr, // å¿½ç•¥äº†PCå‰é¢çš„0x004
+         input  wire [11:2] instr_addr, // ºöÂÔÁËPCÇ°ÃæµÄ0x004
 
          output wire [`WORD_WIDTH] instrF
        );

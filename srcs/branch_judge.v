@@ -5,7 +5,7 @@ module branch_judge(
          input  wire [`WORD_WIDTH]      reg1_data,
          input  wire [`WORD_WIDTH]      reg2_data,
 
-         output wire                    isRsRtEq       // rs rtæ˜¯å¦ç›¸ç­‰
+         output wire                    isRsRtEq       // rs rtÊÇ·ñÏàµÈ
        );
 
 // rs - rt = diff

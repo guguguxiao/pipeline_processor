@@ -23,10 +23,10 @@ module stall_unit(
 wire lw_stall;
 wire branch_stall;
 
-// lwæ­¤æ—¶åœ¨exeé˜¶æ®µï¼Œè¦ä½¿ç”¨lwç»“æœçš„æŒ‡ä»¤åœ¨idé˜¶æ®µ
+// lw´ËÊ±ÔÚexe½×¶Î£¬ÒªÊ¹ÓÃlw½á¹ûµÄÖ¸ÁîÔÚid½×¶Î
 assign lw_stall = (rsD == rtE || rtD == rtE) && (regSrc_muxE == `REG_SRC_MEM) && (rtE != 5'b00000);
 
-// è·³è½¬çš„æ—¶å€™ä¸ä¸Šä¸€æ¡è¯­å¥å‘ç”Ÿæ•°æ®hazardï¼Œæ­¤æ—¶è¦stallä¸€ä¸ªå‘¨æœŸ
+// Ìø×ªµÄÊ±ºòÓëÉÏÒ»ÌõÓï¾ä·¢ÉúÊı¾İhazard£¬´ËÊ±ÒªstallÒ»¸öÖÜÆÚ
 assign branch_stall = ((Regfile_weE) && ((writeRegAddrE == rsD) || (writeRegAddrE == rtD)) && writeRegAddrE != 5'b00000)
        || ((regSrc_muxE == `REG_SRC_MEM) && ((writeRegAddrM == rsD) || (writeRegAddrM == rtD)) && writeRegAddrE != 5'b00000);
 
