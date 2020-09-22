@@ -26,6 +26,7 @@ assign controlCode =
        (opcode == `OP_SLTI) ?                          15'b100011000101011 :
        (opcode == `OP_ZEROS && func == `FUNC_SLTU)?    15'b100011010001101 :
        (opcode == `OP_SLTIU)?                          15'b100011010101011 :
+
        (opcode == `OP_LUI)?                            15'b100011100101010 :
        (opcode == `OP_ZEROS && func == `FUNC_AND)?     15'b100001110001100 :
        (opcode == `OP_ANDI)?                           15'b100001110101010 :
@@ -35,13 +36,16 @@ assign controlCode =
        (opcode == `OP_ZEROS && func == `FUNC_XOR)?     15'b100000010001100 :
        (opcode == `OP_XORI)?                           15'b100000010101010 :
 
+       (opcode == `OP_BEQ)?                            15'b001000000000000 :
+       (opcode == `OP_BNE)?                            15'b001000000000000 :
+       (opcode == `OP_J)?                              15'b000100000000000 :
+
        (opcode == `OP_SW)?                             15'b010001000100001 :
        (opcode == `OP_LW)?                             15'b100001000110011 :
        15'b000000000000000;
 
 assign Regfile_weD=controlCode[14];
 assign DataMem_weD=controlCode[13];
-// TODO:»¹Òª¿¼ÂÇisRsRteq
 assign npcOp=controlCode[12:11];
 assign aluOpD=controlCode[10:7];
 assign aluSrc1_muxD=controlCode[6];

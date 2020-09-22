@@ -77,16 +77,18 @@ assign readData2D = readData2;
 
 wire [`NPC_OP_LENGTH] npcOp;
 
+wire isRsRtEq;
+
 NPC NPC(
       .pc(pcF),
       .imm16(imm16),
       .imm26(imm26),
       .npcOp(npcOp),
-
+      .isRsRtEq(isRsRtEq),
+      
       .npc(npc)
     );
 
-wire isRsRtEq;
 
 // 数据进入branch前进行的前递
 wire [`WORD_WIDTH] reg1_data = (forwardAD == 1'b1) ? aluOutM : readData1;

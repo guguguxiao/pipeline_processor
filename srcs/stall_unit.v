@@ -36,6 +36,7 @@ assign stallD = lw_stall || branch_stall;
 
 assign flushE = lw_stall || branch_stall;
 
+// 暂时不考虑冲刷流水线
 assign flushD = 1'b0;
 
 endmodule
