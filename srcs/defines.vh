@@ -10,6 +10,8 @@
 `define RAMLINE 1048576
 `define DATARAMLINE 4194304
 
+`define ADDR_BASE 0x10010000
+
 // 指令各部分
 `define OP       31:26
 `define FUNC     5:0
