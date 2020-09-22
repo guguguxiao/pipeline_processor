@@ -25,9 +25,9 @@ PC PC(
    );
 
 instruction_memory instruction_memory(
-                     .instr_addr(pc),
+                     .instr_addr(pc[11:2]),
 
-                     .instr(instrF)
+                     .instrF(instrF)
                    );
 
 // 传给模块id的pc

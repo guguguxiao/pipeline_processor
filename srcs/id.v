@@ -36,7 +36,7 @@ module id (
          output [`WORD_WIDTH]       readData1D,
          output [`WORD_WIDTH]       readData2D,
 
-         // if_id输出
+
          output [`REG_SIZE]         rsD,
          output [`REG_SIZE]         rtD,
          output [`REG_SIZE]         rdD,
@@ -44,7 +44,7 @@ module id (
          output [4:0]               saD
        );
 
-wire [5:0] oped = instrD[`OP];
+wire [5:0] opcode = instrD[`OP];
 wire [5:0] func = instrD[`FUNC];
 wire [4:0] rs = instrD[`RS];
 wire [4:0] rt = instrD[`RT];
@@ -64,14 +64,14 @@ wire [`WORD_WIDTH] readData2;
 
 register_file register_file (
                 .clk(clk),
-                .rs(rs),
-                .rt(rt),
+                .reg1_addr(rs),
+                .reg2_addr(rt),
                 .Regfile_weW(Regfile_weW),
                 .writeRegAddrW(writeRegAddrW),
                 .writeDataW(wbOut),
 
-                .readData1D(readData1),
-                .readData2D(readData2)
+                .readData1(readData1),
+                .readData2(readData2)
               );
 
 assign readData1D = readData1;
@@ -103,7 +103,7 @@ branch_judge branch_judge(
 
 control_unit control_unit (
                .rst(rst),
-               .opcode(oped),
+               .opcode(opcode),
                .func(func),
                .isRsRtEq(isRsRtEq),
 

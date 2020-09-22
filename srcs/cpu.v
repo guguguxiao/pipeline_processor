@@ -158,14 +158,12 @@ wire [`WORD_WIDTH]             writeDataE;
 ex ex(
      .forwardAE(forwardAE),
      .forwardBE(forwardBE),
-     .rsE(rsE),
      .rtE(rtE),
      .rdE(rdE),
      .aluOpE(aluOpE),
      .aluSrc1_muxE(aluSrc1_muxE),
      .aluSrc2_muxE(aluSrc2_muxE),
      .imm16E(imm16E),
-     .regSrc_muxE(regSrc_muxE),
      .regDst_muxE(regDst_muxE),
      .readData1E(readData1E),
      .readData2E(readData2E),
@@ -182,6 +180,7 @@ wire             Regfile_weM;
 wire             DataMem_weM;
 wire [`REG_SIZE]  writeRegAddrM;
 wire [`WORD_WIDTH] writeDataM;
+wire [`REG_SRC_LENGTH] regSrc_muxM;
 
 ex_mem ex_mem(
          .clk(clk),
@@ -191,9 +190,12 @@ ex_mem ex_mem(
          .writeRegAddrE(writeRegAddrE),
          .aluOutE(aluOutE),
          .writeDataE(writeDataE),
+         .regSrc_muxE(regSrc_muxE),
+
          .Regfile_weM(Regfile_weM),
          .DataMem_weM(DataMem_weM),
          .writeRegAddrM(writeRegAddrM),
+         .regSrc_muxM(regSrc_muxM),
          .aluOutM(aluOutM),
          .writeDataM(writeDataM)
        );
@@ -203,7 +205,7 @@ wire [`WORD_WIDTH] readDataM;
 DataMem DataMem(
           .clk(clk),
           .DataMem_we(DataMem_weM),
-          .addr(writeRegAddrM),
+          .addr(aluOutM),
           .writeData(writeDataM),
           .readData(readDataM)
         );
@@ -211,6 +213,7 @@ DataMem DataMem(
 wire      [`WORD_WIDTH]  readDataW;
 wire      [`REG_SIZE]    writeRegAddrW;
 wire     [`WORD_WIDTH]    aluOutW;
+wire [`REG_SRC_LENGTH]       regSrc_muxW;
 
 mem_wb mem_wb(
          .clk(clk),
@@ -219,11 +222,18 @@ mem_wb mem_wb(
          .readDataM(readDataM),
          .aluOutM(aluOutM),
          .writeRegAddrM(writeRegAddrM),
+         .regSrc_muxM(regSrc_muxM),
+
          .Regfile_weW(Regfile_weW),
          .aluOutW(aluOutW),
+         .regSrc_muxW(regSrc_muxW),
          .readDataW(readDataW),
          .writeRegAddrW(writeRegAddrW)
        );
+
+assign wbOut=(regSrc_muxW == `REG_SRC_ALU) ? aluOutW :
+       (regSrc_muxW == `REG_SRC_MEM) ? readDataW :
+       `ZERO_WORD;
 
 forward_unit forward_unit(
                .rsD(rsD),
@@ -258,5 +268,4 @@ stall_unit stall_unit(
              .flushE(flushE)
            );
 
-assign wbOut=(Regfile_weW==1'b0) ? readDataW :aluOutW;
 endmodule

@@ -3,7 +3,7 @@
 `define BYTE_WIDTH 7:0
 `define REG_SIZE 4:0
 
-`define INSTR_SIZE 2048:0 // 最大指令条数
+`define INSTR_SIZE 1023:0 // 最大指令条数
 
 `define EXP_PC 32'h00000040
 `define PC_BASE 32'h00000000
@@ -105,16 +105,16 @@
 `define FUNC_XOR 6'b100110
 
 // ALU操作码
-`define ALU_OP_LENGTH 4:0
-`define ALU_XOR 5'b00001
-`define ALU_EQB 5'b00010
-`define ALU_ADD 5'b00100
-`define ALU_LS_LEFT 5'b00011
-`define ALU_LS_RIGHT 5'b00101
-`define ALU_AS_RIGHT 5'b00110
-`define ALU_AND 5'b00111
-`define ALU_NOR 5'b01001
-`define ALU_OR 5'b01010
-`define ALU_SUB 5'b01011
-`define ALU_SLT 5'b01100
-`define ALU_SLTU 5'b01101
+`define ALU_OP_LENGTH       3:0
+`define ALU_XOR             4'b0001
+`define ALU_EQB             4'b0010
+`define ALU_ADD             4'b0100
+`define ALU_LS_LEFT         4'b0011
+`define ALU_LS_RIGHT        4'b0101
+`define ALU_AS_RIGHT        4'b0110
+`define ALU_AND             4'b0111
+`define ALU_NOR             4'b1001
+`define ALU_OR              4'b1010
+`define ALU_SUB             4'b1011
+`define ALU_SLT             4'b1100
+`define ALU_SLTU            4'b1101

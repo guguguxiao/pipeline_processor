@@ -72,7 +72,7 @@ always @(posedge clk)
         DataMem_weE <= DataMem_weD;
         extOpE <= extOpD;
         aluOpE <= aluOpD;
-        aluSrc1_muxE <= aluSrc2_muxD;
+        aluSrc1_muxE <= aluSrc1_muxD;
         aluSrc2_muxE <= aluSrc2_muxD;
         regSrc_muxE <= regSrc_muxD;
         regDst_muxE <= regDst_muxD;
