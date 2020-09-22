@@ -24,7 +24,7 @@ module id (
          // CU输出
          output wire                        Regfile_weD,
          output wire                        DataMem_weD,
-         output wire [`EXT_OP_LENGTH]        extOpD,
+         output wire         extOpD,
          output wire [`ALU_OP_LENGTH]        aluOpD,
          output wire                        aluSrc1_muxD,
          output wire                        aluSrc2_muxD,

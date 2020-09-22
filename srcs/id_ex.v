@@ -11,7 +11,7 @@ module id_ex(
          input [4:0]                            saD,
          input wire                             Regfile_weD,
          input wire                             DataMem_weD,
-         input wire [`EXT_OP_LENGTH]            extOpD,
+         input wire             extOpD,
          input wire [`ALU_OP_LENGTH]            aluOpD,
          input wire                             aluSrc1_muxD,
          input wire                             aluSrc2_muxD,
@@ -29,7 +29,7 @@ module id_ex(
          output [4:0]                           saE,
          output wire                            Regfile_weE,
          output wire                            DataMem_weE,
-         output wire [`EXT_OP_LENGTH]           extOpE,
+         output wire            extOpE,
          output wire [`ALU_OP_LENGTH]           aluOpE,
          output wire                            aluSrc1_muxE,
          output wire                            aluSrc2_muxE,
@@ -51,7 +51,7 @@ always @(posedge clk)
         saE <= 5'b00000;
         Regfile_weE <= 1'b0;
         DataMem_weE <= 1'b0;
-        extOpE <= 2'b00;
+        extOpE <= 1'b0;
         aluOpE <= 4'h0;
         aluSrc1_muxE <= 1'b0;
         aluSrc2_muxE <= 1'b0;

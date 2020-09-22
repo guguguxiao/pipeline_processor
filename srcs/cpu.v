@@ -43,7 +43,7 @@ wire [`WORD_WIDTH]   aluOutM;
 
 wire                        Regfile_weD;
 wire                        DataMem_weD;
-wire [`EXT_OP_LENGTH]        extOpD;
+wire         extOpD;
 wire [`ALU_OP_LENGTH]        aluOpD;
 wire                        aluSrc1_muxD;
 wire                        aluSrc2_muxD;
@@ -99,7 +99,7 @@ wire  [15:0]                      imm16E;
 wire  [4:0]                       saE;
 wire                        Regfile_weE;
 wire                        DataMem_weE;
-wire [`EXT_OP_LENGTH]        extOpE;
+wire         extOpE;
 wire [`ALU_OP_LENGTH]        aluOpE;
 wire                        aluSrc1_muxE;
 wire                        aluSrc2_muxE;

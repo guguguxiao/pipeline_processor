@@ -9,7 +9,7 @@ module control_unit(
 
          output wire                            Regfile_weD,
          output wire                            DataMem_weD,
-         output wire [`EXT_OP_LENGTH]           extOpD,
+         output wire            extOpD,
          output wire [`NPC_OP_LENGTH]           npcOp,
          output wire [`ALU_OP_LENGTH]           aluOpD,
          output wire                            aluSrc1_muxD,

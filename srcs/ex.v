@@ -17,7 +17,7 @@ module ex(
          input [`WORD_WIDTH]                aluOutM,
          input [`WORD_WIDTH]                wbOut,
          input [4:0]                        saE,
-         input wire [`EXT_OP_LENGTH]        extOpE,
+         input wire         extOpE,
          
          output [`REG_SIZE]                 writeRegAddrE,
          output[`WORD_WIDTH]                aluOutE,
