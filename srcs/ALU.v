@@ -48,4 +48,6 @@ assign aluOutE = (aluOpE ==`ALU_AND) ? and_res
        : (aluOpE ==`ALU_AS_RIGHT) ? (({32{SrcB[31]}} << (6'd32-{1'b0,SrcA[4:0]})) | SrcB >> SrcA[4:0])
        : 32'h00000000;
 
+
+
 endmodule

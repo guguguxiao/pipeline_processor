@@ -29,10 +29,8 @@
 `define NPC_OP_BRANCH   2'b10     // BEQ ...
 
 // 数字扩展控制信号
-`define EXT_OP_LENGTH   1:0       // Length of Signal ExtOp
-`define EXT_OP_DEFAULT  2'b00     // ExtOp default value
-`define EXT_OP_UNSIGNED 2'b01     // 无符号
-`define EXT_OP_SIGNED   2'b10     // 有符号
+`define EXT_OP_UNSIGNED 1'b0     // 无符号
+`define EXT_OP_SIGNED   1'b1     // 有符号
 
 // ALU第一个操作数的选择信号
 `define ALU_SRC1_MUX_RS     1'b0       // ALU source: register file
