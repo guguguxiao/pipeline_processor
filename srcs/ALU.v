@@ -28,7 +28,7 @@ assign xor_res= SrcA^SrcB;
 assign nor_res=~(SrcA | SrcB);
 assign or_res=SrcA | SrcB;
 assign eqb_res=SrcA;
-assign lui_res={SrcA[15:0],16'h0000};
+assign lui_res={SrcB[15:0],16'h0000};
 assign slt_res=((SrcA[31] == 1'b1 && SrcB[31] == 1'b0 ) || (SrcA[31] == 1'b1 && SrcB[31] == 1'b1 && SrcA > SrcB) || (SrcA[31] == 1'b0 && SrcB[31] == 1'b0 && SrcA < SrcB))?
        32'h00000001: `ZERO_WORD;
 assign sltu_res=({1'b0,SrcA} < {1'b0,SrcB}) ? 32'h00000001:`ZERO_WORD;

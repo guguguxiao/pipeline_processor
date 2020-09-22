@@ -37,7 +37,7 @@
 `define ALU_SRC1_MUX_SA     1'b1       // ALU Source: immediate
 
 // ALU第二个操作数的选择信号
-`define ALU_SRC2_MUX_RT     1'b0       // ALU source: register file
+`define ALU_SRC2_MUX_RT      1'b0       // ALU source: register file
 `define ALU_SRC2_MUX_IMM     1'b1       // ALU Source: immediate
 
 // 写回寄存器的数值来源

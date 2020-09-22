@@ -1,10 +1,10 @@
 # pipeline_processor
 
-## æµæ°´çº¿é˜¶æ®µ
+## Á÷Ë®Ïß½×¶Î
 
 IF(F) -> IF/ID(D) -> ID -> ID/EXE(E) -> EXE -> EXE/ME(M) -> ME -> ME/WB(W) -> WB
 
-## æ¥å£è®¾è®¡
+## ½Ó¿ÚÉè¼Æ
 
 
 ### IF
@@ -22,7 +22,7 @@ module pc(
 #### Instruction Memory
 ```
 module instruction_memory(
-         input  wire [11:2] instr_addr, // å¿½ç•¥äº†PCå‰é¢çš„0x004
+         input  wire [11:2] instr_addr, // ºöÂÔÁËPCÇ°ÃæµÄ0x004
 
          output wire [`WORD_WIDTH] instr
        );
@@ -62,7 +62,7 @@ module branch_judge(
          input  wire [`WORD_WIDTH]   reg1_data,
          input  wire [`WORD_WIDTH]   reg2_data,
 
-         output wire                isRsRtEq       // rs rtæ˜¯å¦ç›¸ç­‰
+         output wire                isRsRtEq       // rs rtÊÇ·ñÏàµÈ
        );
 ```
 
@@ -82,7 +82,7 @@ module control_unit(
          output wire                        aluSrc2_muxD,
          output wire [`REG_SRC_LENGTH]       regSrc_muxD,
          output wire [`REG_DST_LENGTH]       regDst_muxD,
-         output wire                        memToRegD // æ˜¯å¦ä¸ºä»å†…å­˜åŠ è½½åˆ°å¯„å­˜å™¨ä¸­çš„æŒ‡ä»¤
+         output wire                        memToRegD // ÊÇ·ñÎª´ÓÄÚ´æ¼ÓÔØµ½¼Ä´æÆ÷ÖĞµÄÖ¸Áî
        );
 ```
 
@@ -251,51 +251,51 @@ module mem_wb(
     
 );
 ```
-## æ”¯æŒæŒ‡ä»¤
-### ç®—æœ¯è¿ç®—æŒ‡ä»¤(7æ¡)
-- ADDU rd, rs, rt  GPR[rd] â† GPR[rs] + GPR[rt] 
-- ADDIU rt, rs, imm  GPR[rt] â† GPR[rs] + sign_extend(imm) 
-- SUBU rd, rs, rt  GPR[rd] â† GPR[rs] â€“ GPR[rt] 
+## Ö§³ÖÖ¸Áî
+### ËãÊõÔËËãÖ¸Áî(7Ìõ)
+- ADDU rd, rs, rt  GPR[rd] ¡û GPR[rs] + GPR[rt] 
+- ¡Ì ADDIU rt, rs, imm  GPR[rt] ¡û GPR[rs] + sign_extend(imm) 
+- SUBU rd, rs, rt  GPR[rd] ¡û GPR[rs] ¨C GPR[rt] 
 - SLT rd, rt, rs  
-    if GPR[rs] < GPR[rt] GPR[rd] â† 1  
-    else  GPR[rd] â† 0  
+    if GPR[rs] < GPR[rt] GPR[rd] ¡û 1  
+    else  GPR[rd] ¡û 0  
 - SLTI rt, rs, imm  
-    if GPR[rs] < Sign_extend(imm)  GPR[rt] â† 1  
-    else GPR[rt] â† 0
+    if GPR[rs] < Sign_extend(imm)  GPR[rt] ¡û 1  
+    else GPR[rt] ¡û 0
 - SLTU rd, rs, rt  
-    if (0||GPR[rs]31..0) < (0||GPR[rt]31..0) //rs rtä¸­çš„å€¼è¿›è¡Œæ— ç¬¦å·æ•°æ¯”è¾ƒ
-    GPR[rd] â† 1  
-    else GPR[rd] â† 0
+    if (0||GPR[rs]31..0) < (0||GPR[rt]31..0) //rs rtÖĞµÄÖµ½øĞĞÎŞ·ûºÅÊı±È½Ï
+    GPR[rd] ¡û 1  
+    else GPR[rd] ¡û 0
 - SLTIU rt, rs, imm  
-    if (0||GPR[rs]31..0) < Sign_extend(imm) GPR[rt] â† 1  
-    else GPR[rt] â† 0
-### é€»è¾‘è¿ç®—æŒ‡ä»¤ï¼ˆ8æ¡ï¼‰
-- AND rd, rs, rt  GPR[rd] â† GPR[rs] & GPR[rt]  
-- ANDI rt, rs, imm  GPR[rt] â† GPR[rs] & Zero_extend(imm)  
-- LUI rt, imm GPR[rt] â† (imm || 16'h0000)
-- NOR rd, rs, rt GPR[rd] â† GPR[rs] nor GPR[rt]
-- OR rd, rs, rt GPR[rd] â† GPR[rs] or GPR[rt]
-- ORI rt, rs, imm GPR[rt] â† GPR[rs] or Zero_extend(imm)
-- XOR rd, rs, rt GPR[rd] â† GPR[rs] xor GPR[rt]
-- XORI rt, rs, imm GPR[rt] â† GPR[rs] xor Zero_extend(imm)
-### ç§»ä½æŒ‡ä»¤ï¼ˆ6æ¡ï¼‰
-- SLLV rd, rt, rs GPR[rd] â† GPR[rt] (31-rs)..0||rs'h0   
-ç”±å¯„å­˜å™¨ rs ä¸­çš„å€¼æŒ‡å®šç§»ä½é‡ï¼Œå¯¹å¯„å­˜å™¨ rt çš„å€¼è¿›è¡Œé€»è¾‘å·¦ç§»ï¼Œç»“æœå†™å…¥å¯„å­˜å™¨ rd ä¸­ã€‚
-- SLL rd, rt, sa GPR[rd] â† GPR[rt] (31-sa)..0||sa'h0  
-ç”±ç«‹å³æ•° sa æŒ‡å®šç§»ä½é‡ï¼Œå¯¹å¯„å­˜å™¨ rt çš„å€¼è¿›è¡Œé€»è¾‘å·¦ç§»ï¼Œç»“æœå†™å…¥å¯„å­˜å™¨ rd ä¸­ã€‚
+    if (0||GPR[rs]31..0) < Sign_extend(imm) GPR[rt] ¡û 1  
+    else GPR[rt] ¡û 0
+### Âß¼­ÔËËãÖ¸Áî£¨8Ìõ£©
+- AND rd, rs, rt  GPR[rd] ¡û GPR[rs] & GPR[rt]  
+- ANDI rt, rs, imm  GPR[rt] ¡û GPR[rs] & Zero_extend(imm)  
+- LUI rt, imm GPR[rt] ¡û (imm || 16'h0000)
+- NOR rd, rs, rt GPR[rd] ¡û GPR[rs] nor GPR[rt]
+- OR rd, rs, rt GPR[rd] ¡û GPR[rs] or GPR[rt]
+- ORI rt, rs, imm GPR[rt] ¡û GPR[rs] or Zero_extend(imm)
+- XOR rd, rs, rt GPR[rd] ¡û GPR[rs] xor GPR[rt]
+- XORI rt, rs, imm GPR[rt] ¡û GPR[rs] xor Zero_extend(imm)
+### ÒÆÎ»Ö¸Áî£¨6Ìõ£©
+- SLLV rd, rt, rs GPR[rd] ¡û GPR[rt] (31-rs)..0||rs'h0   
+ÓÉ¼Ä´æÆ÷ rs ÖĞµÄÖµÖ¸¶¨ÒÆÎ»Á¿£¬¶Ô¼Ä´æÆ÷ rt µÄÖµ½øĞĞÂß¼­×óÒÆ£¬½á¹ûĞ´Èë¼Ä´æÆ÷ rd ÖĞ¡£
+- SLL rd, rt, sa GPR[rd] ¡û GPR[rt] (31-sa)..0||sa'h0  
+ÓÉÁ¢¼´Êı sa Ö¸¶¨ÒÆÎ»Á¿£¬¶Ô¼Ä´æÆ÷ rt µÄÖµ½øĞĞÂß¼­×óÒÆ£¬½á¹ûĞ´Èë¼Ä´æÆ÷ rd ÖĞ¡£
 - SRAV rd, rt, rs   
-ç”±å¯„å­˜å™¨ rs ä¸­çš„å€¼æŒ‡å®šç§»ä½é‡ï¼Œå¯¹å¯„å­˜å™¨ rt çš„å€¼è¿›è¡Œç®—æœ¯å³ç§»ï¼Œç»“æœå†™å…¥å¯„å­˜å™¨ rd ä¸­ã€‚
+ÓÉ¼Ä´æÆ÷ rs ÖĞµÄÖµÖ¸¶¨ÒÆÎ»Á¿£¬¶Ô¼Ä´æÆ÷ rt µÄÖµ½øĞĞËãÊõÓÒÒÆ£¬½á¹ûĞ´Èë¼Ä´æÆ÷ rd ÖĞ¡£
 - SRA rd, rt, sa
-ç”±ç«‹å³æ•° sa æŒ‡å®šç§»ä½é‡ï¼Œå¯¹å¯„å­˜å™¨ rt çš„å€¼è¿›è¡Œç®—æœ¯å³ç§»ï¼Œç»“æœå†™å…¥å¯„å­˜å™¨ rd ä¸­ã€‚
+ÓÉÁ¢¼´Êı sa Ö¸¶¨ÒÆÎ»Á¿£¬¶Ô¼Ä´æÆ÷ rt µÄÖµ½øĞĞËãÊõÓÒÒÆ£¬½á¹ûĞ´Èë¼Ä´æÆ÷ rd ÖĞ¡£
 - SRLV rd, rt, rs
-ç”±å¯„å­˜å™¨ rs ä¸­çš„å€¼æŒ‡å®šç§»ä½é‡ï¼Œå¯¹å¯„å­˜å™¨ rt çš„å€¼è¿›è¡Œé€»è¾‘å³ç§»ï¼Œç»“æœå†™å…¥å¯„å­˜å™¨ rd ä¸­ã€‚
+ÓÉ¼Ä´æÆ÷ rs ÖĞµÄÖµÖ¸¶¨ÒÆÎ»Á¿£¬¶Ô¼Ä´æÆ÷ rt µÄÖµ½øĞĞÂß¼­ÓÒÒÆ£¬½á¹ûĞ´Èë¼Ä´æÆ÷ rd ÖĞ¡£
 - SRL rd, rt, sa  
-ç”±ç«‹å³æ•° sa æŒ‡å®šç§»ä½é‡ï¼Œå¯¹å¯„å­˜å™¨ rt çš„å€¼è¿›è¡Œé€»è¾‘å³ç§»ï¼Œç»“æœå†™å…¥å¯„å­˜å™¨ rd ä¸­ã€‚
-### åˆ†æ”¯è·³è½¬æŒ‡ä»¤ï¼ˆ3æ¡ï¼‰
+ÓÉÁ¢¼´Êı sa Ö¸¶¨ÒÆÎ»Á¿£¬¶Ô¼Ä´æÆ÷ rt µÄÖµ½øĞĞÂß¼­ÓÒÒÆ£¬½á¹ûĞ´Èë¼Ä´æÆ÷ rd ÖĞ¡£
+### ·ÖÖ§Ìø×ªÖ¸Áî£¨3Ìõ£©
 - BEQ rs, rt, offset
 - BNE rs, rt, offset
 - J target
-### è®¿å­˜æŒ‡ä»¤ï¼ˆ2æ¡ï¼‰
+### ·Ã´æÖ¸Áî£¨2Ìõ£©
 - LW rt, offset(base)
 - SW rt, offset(base)
 
