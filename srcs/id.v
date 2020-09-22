@@ -30,6 +30,7 @@ module id (
          output wire                        aluSrc2_muxD,
          output wire [`REG_SRC_LENGTH]       regSrc_muxD,
          output wire [`REG_DST_LENGTH]       regDst_muxD,
+         output wire [`NPC_OP_LENGTH]           npcOpD,
 
          // ¼Ä´æÆ÷¶ÑÊä³ö
          output [`WORD_WIDTH]       readData1D,
@@ -115,6 +116,6 @@ control_unit control_unit (
                .regDst_muxD(regDst_muxD)
              );
 
-
+assign npcOpD = npcOp;
 
 endmodule

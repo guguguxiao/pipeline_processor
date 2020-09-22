@@ -57,7 +57,7 @@ wire [`REG_SIZE]         rdD;
 wire [15:0]              imm16D;
 wire               forwardAD;
 wire               forwardBD;
-
+wire [`NPC_OP_LENGTH]           npcOpD;
 
 id id(
      .clk(clk),
@@ -80,6 +80,7 @@ id id(
      .aluSrc2_muxD(aluSrc2_muxD),
      .regSrc_muxD(regSrc_muxD),
      .regDst_muxD(regDst_muxD),
+     .npcOpD(npcOpD),
      .readData1D(readData1D),
      .readData2D(readData2D),
      .rsD(rsD),
@@ -247,7 +248,8 @@ stall_unit stall_unit(
              .writeRegAddrM(writeRegAddrM),
              .Regfile_weE(Regfile_weE),
              .regSrc_muxE(regSrc_muxE),
-
+             .npcOpD(npcOpD),
+             
              .stallF(stallF),
              .stallD(stallD),
              .flushD(flushD),

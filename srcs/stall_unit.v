@@ -11,7 +11,8 @@ module stall_unit(
          input [`REG_SIZE]  writeRegAddrM,
          input              Regfile_weE,
 
-         input [`REG_SRC_LENGTH]  regSrc_muxE,
+         input [`REG_SRC_LENGTH]     regSrc_muxE,
+         input [`NPC_OP_LENGTH]      npcOpD,
 
          output             stallF,
          output             stallD,
@@ -27,8 +28,8 @@ wire branch_stall;
 assign lw_stall = (rsD == rtE || rtD == rtE) && (regSrc_muxE == `REG_SRC_MEM) && (rtE != 5'b00000);
 
 // 跳转的时候与上一条语句发生数据hazard，此时要stall一个周期
-assign branch_stall = ((Regfile_weE) && ((writeRegAddrE == rsD) || (writeRegAddrE == rtD)) && writeRegAddrE != 5'b00000)
-       || ((regSrc_muxE == `REG_SRC_MEM) && ((writeRegAddrM == rsD) || (writeRegAddrM == rtD)) && writeRegAddrE != 5'b00000);
+assign branch_stall = ((npcOpD != 2'b00) && (Regfile_weE) && ((writeRegAddrE == rsD) || (writeRegAddrE == rtD)) && writeRegAddrE != 5'b00000)
+       || ((npcOpD != 2'b00) && (regSrc_muxE == `REG_SRC_MEM) && ((writeRegAddrM == rsD) || (writeRegAddrM == rtD)) && writeRegAddrE != 5'b00000);
 
 assign stallF = lw_stall || branch_stall;
 assign stallD = lw_stall || branch_stall;
