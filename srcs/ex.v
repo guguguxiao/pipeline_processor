@@ -16,9 +16,8 @@ module ex(
          input [`WORD_WIDTH]                readData2E,
          input [`WORD_WIDTH]                aluOutM,
          input [`WORD_WIDTH]                wbOut,
-         input [4:0]                        saE,
-         input wire         extOpE,
-         
+         input wire                         extOpE,
+
          output [`REG_SIZE]                 writeRegAddrE,
          output[`WORD_WIDTH]                aluOutE,
          output[`WORD_WIDTH]                writeDataE
@@ -28,17 +27,18 @@ wire [`WORD_WIDTH]              data2;
 wire [`WORD_WIDTH]              data1_tmp;
 wire [`WORD_WIDTH]              data2_tmp;
 
-wire [`WORD_WIDTH] extend_immE= extOpE?{{16{imm16E[15]}},imm16E[15:0]}
-                                          :{{16{1'b0}},imm16E[15:0]};
-wire [`WORD_WIDTH] extend_saE={{27{1'b0}},imm16E[4:0]};
+wire [`WORD_WIDTH] extend_immE = extOpE ? {{16{imm16E[15]}},imm16E[15:0]}
+     :{{16{1'b0}}, imm16E[15:0]};
+
+wire [`WORD_WIDTH] extend_saE = {{27{1'b0}},imm16E[4:0]};
 assign data1_tmp = (forwardAE == 2'b01) ? aluOutM :
        (forwardAE == 2'b10) ? wbOut :
        readData1E;
 assign data2_tmp = (forwardBE == 2'b01) ? aluOutM :
        (forwardBE == 2'b10) ? wbOut :
        readData2E;
-assign data1= (aluSrc1_muxE == 1'b1) ? extend_saE : data1_tmp;
-assign data2 = (aluSrc2_muxE == 1'b1) ? extend_immE :data2_tmp;
+assign data1 = (aluSrc1_muxE == `ALU_SRC1_MUX_SA) ? extend_saE : data1_tmp;
+assign data2 = (aluSrc2_muxE == `ALU_SRC2_MUX_IMM) ? extend_immE :data2_tmp;
 assign writeDataE = data2_tmp;
 // ALU
 ALU ALU(

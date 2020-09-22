@@ -9,8 +9,7 @@ module fetch (
 
          output reg[`WORD_WIDTH]    pcF,
          output wire [`WORD_WIDTH]  instrF
-       )
-         ;
+       );
 
 // if模块内部使用的pc线
 wire [`WORD_WIDTH] pc;

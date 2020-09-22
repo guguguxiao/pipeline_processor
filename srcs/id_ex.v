@@ -8,16 +8,14 @@ module id_ex(
          input [`REG_SIZE]                      rtD,
          input [`REG_SIZE]                      rdD,
          input [15:0]                           imm16D,
-         input [4:0]                            saD,
          input wire                             Regfile_weD,
          input wire                             DataMem_weD,
-         input wire             extOpD,
+         input wire                             extOpD,
          input wire [`ALU_OP_LENGTH]            aluOpD,
          input wire                             aluSrc1_muxD,
          input wire                             aluSrc2_muxD,
          input wire [`REG_SRC_LENGTH]           regSrc_muxD,
          input wire [`REG_DST_LENGTH]           regDst_muxD,
-          input                                 memToRegD,
          input [`WORD_WIDTH]                    readData1D,
          input [`WORD_WIDTH]                    readData2D,
          input                                  flushE,
@@ -26,16 +24,14 @@ module id_ex(
          output [`REG_SIZE]                     rtE,
          output [`REG_SIZE]                     rdE,
          output [15:0]                          imm16E,
-         output [4:0]                           saE,
          output wire                            Regfile_weE,
          output wire                            DataMem_weE,
-         output wire            extOpE,
+         output wire                            extOpE,
          output wire [`ALU_OP_LENGTH]           aluOpE,
          output wire                            aluSrc1_muxE,
          output wire                            aluSrc2_muxE,
          output wire [`REG_SRC_LENGTH]          regSrc_muxE,
          output wire [`REG_DST_LENGTH]          regDst_muxE,
-         output                                 memToRegE,
          output [`WORD_WIDTH]                   readData1E,
          output [`WORD_WIDTH]                   readData2E
        );
@@ -48,7 +44,6 @@ always @(posedge clk)
         rtE <= 5'b00000;
         rdE <= 5'b00000;
         imm16E <= 16'h0000;
-        saE <= 5'b00000;
         Regfile_weE <= 1'b0;
         DataMem_weE <= 1'b0;
         extOpE <= 1'b0;
@@ -57,7 +52,6 @@ always @(posedge clk)
         aluSrc2_muxE <= 1'b0;
         regSrc_muxE <= 2'b00;
         regDst_muxE <= 2'b00;
-        memToRegE <= 1'b0;
         readData1E <= `ZERO_WORD;
         readData2E<= `ZERO_WORD;
       end
@@ -67,7 +61,6 @@ always @(posedge clk)
         rtE <= rtD;
         rdE <= rdD;
         imm16E <= imm16D;
-        saE <= saD;
         Regfile_weE <= Regfile_weD;
         DataMem_weE <= DataMem_weD;
         extOpE <= extOpD;
@@ -76,7 +69,6 @@ always @(posedge clk)
         aluSrc2_muxE <= aluSrc2_muxD;
         regSrc_muxE <= regSrc_muxD;
         regDst_muxE <= regDst_muxD;
-        memToRegE <= memToRegD;
         readData1E <= readData1D;
         readData2E <= readData2D;
       end

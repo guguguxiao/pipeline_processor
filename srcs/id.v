@@ -24,13 +24,12 @@ module id (
          // CU输出
          output wire                        Regfile_weD,
          output wire                        DataMem_weD,
-         output wire         extOpD,
+         output wire                        extOpD,
          output wire [`ALU_OP_LENGTH]        aluOpD,
          output wire                        aluSrc1_muxD,
          output wire                        aluSrc2_muxD,
          output wire [`REG_SRC_LENGTH]       regSrc_muxD,
          output wire [`REG_DST_LENGTH]       regDst_muxD,
-         output wire                        memToRegD, // 是否为从内存加载到寄存器中的指令
 
          // 寄存器堆输出
          output [`WORD_WIDTH]       readData1D,
@@ -40,8 +39,7 @@ module id (
          output [`REG_SIZE]         rsD,
          output [`REG_SIZE]         rtD,
          output [`REG_SIZE]         rdD,
-         output [15:0]              imm16D,
-         output [4:0]               saD
+         output [15:0]              imm16D
        );
 
 wire [5:0] opcode = instrD[`OP];
@@ -57,7 +55,6 @@ assign rsD = rs;
 assign rtD = rt;
 assign rdD = rd;
 assign imm16D = imm16;
-assign saD = sa;
 
 wire [`WORD_WIDTH] readData1;
 wire [`WORD_WIDTH] readData2;
@@ -115,8 +112,7 @@ control_unit control_unit (
                .aluSrc1_muxD(aluSrc1_muxD),
                .aluSrc2_muxD(aluSrc2_muxD),
                .regSrc_muxD(regSrc_muxD),
-               .regDst_muxD(regDst_muxD),
-               .memToRegD(memToRegD)
+               .regDst_muxD(regDst_muxD)
              );
 
 

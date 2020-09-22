@@ -15,8 +15,7 @@ module control_unit(
          output wire                            aluSrc1_muxD,
          output wire                            aluSrc2_muxD,
          output wire [`REG_SRC_LENGTH]          regSrc_muxD,
-         output wire [`REG_DST_LENGTH]          regDst_muxD,
-         output wire                            memToRegD // 是否为从内存加载到寄存器中的指令
+         output wire [`REG_DST_LENGTH]          regDst_muxD
        );
     wire [15:0] controlCode;
     assign controlCode = 
@@ -39,12 +38,13 @@ module control_unit(
 
     assign Regfile_weD=controlCode[15];
     assign DataMem_weD=controlCode[14];
+    // TODO:还要考虑isRsRteq
     assign npcOp=controlCode[13:12];
     assign aluOpD=controlCode[11:8];
     assign aluSrc1_muxD=controlCode[7];
     assign aluSrc2_muxD=controlCode[6];
     assign regSrc_muxD=controlCode[5:4];
     assign regDst_muxD=controlCode[3:2];
-    assign memToRegD=controlCode[1];
+
     assign extOpD=controlCode[0];
 endmodule

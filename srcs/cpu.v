@@ -49,14 +49,12 @@ wire                        aluSrc1_muxD;
 wire                        aluSrc2_muxD;
 wire [`REG_SRC_LENGTH]       regSrc_muxD;
 wire [`REG_DST_LENGTH]       regDst_muxD;
-wire                        memToRegD;// 是否为从内存加载到寄存器中的指令器堆输出
 wire [`WORD_WIDTH]       readData1D;
 wire [`WORD_WIDTH]       readData2D;
 wire [`REG_SIZE]         rsD;
 wire [`REG_SIZE]         rtD;
 wire [`REG_SIZE]         rdD;
 wire [15:0]              imm16D;
-wire [4:0]               saD;
 wire               forwardAD;
 wire               forwardBD;
 
@@ -82,21 +80,18 @@ id id(
      .aluSrc2_muxD(aluSrc2_muxD),
      .regSrc_muxD(regSrc_muxD),
      .regDst_muxD(regDst_muxD),
-     .memToRegD(memToRegD),
      .readData1D(readData1D),
      .readData2D(readData2D),
      .rsD(rsD),
      .rtD(rtD),
      .rdD(rdD),
-     .imm16D(imm16D),
-     .saD(saD)
+     .imm16D(imm16D)
    );
 
 wire [`REG_SIZE]                 rsE;
 wire  [`REG_SIZE]                 rtE;
 wire  [`REG_SIZE]                 rdE;
 wire  [15:0]                      imm16E;
-wire  [4:0]                       saE;
 wire                        Regfile_weE;
 wire                        DataMem_weE;
 wire         extOpE;
@@ -108,7 +103,6 @@ wire [`REG_DST_LENGTH]       regDst_muxE;
 wire  [`WORD_WIDTH]               readData1E;
 wire  [`WORD_WIDTH]               readData2E;
 wire                            flushE;
-wire              memToRegE;
 
 id_ex id_ex(
         .clk(clk),
@@ -117,7 +111,6 @@ id_ex id_ex(
         .rtD(rtD),
         .rdD(rdD),
         .imm16D(imm16D),
-        .saD(saD),
         .Regfile_weD(Regfile_weD),
         .DataMem_weD(DataMem_weD),
         .extOpD(extOpD),
@@ -129,13 +122,11 @@ id_ex id_ex(
         .readData1D(readData1D),
         .readData2D(readData2D),
         .flushE(flushE),
-        .memToRegD(memToRegD),
 
         .rsE(rsE),
         .rtE(rtE),
         .rdE(rdE),
         .imm16E(imm16E),
-        .saE(saE),
         .Regfile_weE(Regfile_weE),
         .DataMem_weE(DataMem_weE),
         .extOpE(extOpE),
@@ -144,7 +135,6 @@ id_ex id_ex(
         .aluSrc2_muxE(aluSrc2_muxE),
         .regSrc_muxE(regSrc_muxE),
         .regDst_muxE(regDst_muxE),
-        .memToRegE(memToRegE),
         .readData1E(readData1E),
         .readData2E(readData2E)
       );
@@ -169,7 +159,6 @@ ex ex(
      .readData2E(readData2E),
      .aluOutM(aluOutM),
      .wbOut(wbOut),
-     .saE(saE),
      .extOpE(extOpE),
      .writeRegAddrE(writeRegAddrE),
      .aluOutE(aluOutE),
@@ -253,15 +242,12 @@ forward_unit forward_unit(
 stall_unit stall_unit(
              .rsD(rsD),
              .rtD(rtD),
-             .rsE(rsE),
              .rtE(rtE),
              .writeRegAddrE(writeRegAddrE),
              .writeRegAddrM(writeRegAddrM),
-             .writeRegAddrW(writeRegAddrW),
              .Regfile_weE(Regfile_weE),
-             .Regfile_weM(Regfile_weM),
-             .Regfile_weW(Regfile_weW),
-             .memToRegE(memToRegE),
+             .regSrc_muxE(regSrc_muxE),
+
              .stallF(stallF),
              .stallD(stallD),
              .flushD(flushD),
