@@ -6,7 +6,7 @@ module NPC(
          input  wire [15:0]                  imm16,     // 16 bit immediate
          input  wire [25:0]                  imm26,     // 26 bit immediate
 
-         input  wire [`NPC_OP_LENGTH]        npcOp,     // 跳转控制信号
+         input  wire [`NPC_OP_LENGTH]        npcOp,     // 
 
          output wire [`WORD_WIDTH]           npc       // next program counter
        );

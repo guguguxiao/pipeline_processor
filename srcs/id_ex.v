@@ -38,7 +38,7 @@ module id_ex(
 
 always @(posedge clk)
   begin
-    if(rst || flushE == 1'b1)
+    if(!rst || flushE == 1'b1)
       begin
         rsE <= 5'b00000;
         rtE <= 5'b00000;

@@ -19,7 +19,7 @@ module mem_wb(
        );
 always @(posedge clk)
   begin
-    if(rst)
+    if (!rst) 
       begin
         Regfile_weW<= 1'b0;
         aluOutW <= `ZERO_WORD;

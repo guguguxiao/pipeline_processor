@@ -11,7 +11,7 @@ module PC(
 
 always @(posedge clk)
   begin
-    if(rst)
+    if (!rst) 
       begin
         pc <= `PC_BASE;
       end

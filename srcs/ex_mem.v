@@ -20,7 +20,7 @@ module ex_mem(
   
 );
     always @(posedge clk)begin
-        if(rst)begin
+        if (!rst) begin
             Regfile_weM <= 1'b0;
             DataMem_weM <= 1'b0;
             writeRegAddrM <= 5'b00000;
