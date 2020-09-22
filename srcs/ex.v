@@ -17,7 +17,7 @@ module ex(
          input [`WORD_WIDTH]                readData1E,
          input [`WORD_WIDTH]                readData2E,
          input [`WORD_WIDTH]                aluOutM,
-         input [`WORD_WIDTH]                memOutM,
+         input [`WORD_WIDTH]                wbOut,
          input [4:0]                        saE,
          input wire [`EXT_OP_LENGTH]        extOpE,
          output [`REG_SIZE]                 writeRegAddrE,
@@ -32,10 +32,10 @@ wire [`WORD_WIDTH]              data2_tmp;
 wire [`WORD_WIDTH] extend_immE={{16{imm16E[15]}},imm16E[15:0]};
 wire [`WORD_WIDTH] extend_saE={{27{saE[4]}},saE[4:0]};
 assign data1_tmp = (forwardAE == 2'b01) ? aluOutM :
-       (forwardAE == 2'b10) ? memOutM :
+       (forwardAE == 2'b10) ? wbOut :
        readData1E;
 assign data2_tmp = (forwardBE == 2'b01) ? aluOutM :
-       (forwardBE == 2'b10) ? memOutM :
+       (forwardBE == 2'b10) ? wbOut :
        readData2E;
 assign data1= (aluSrc2_muxE == 1'b1) ? extend_saE : data1_tmp;
 assign data2 = (aluSrc2_muxE == 1'b1) ? extend_immE :data2_tmp;

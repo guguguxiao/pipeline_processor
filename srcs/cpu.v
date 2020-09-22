@@ -38,7 +38,7 @@ if_id if_id(
 
 
 wire                 Regfile_weW;
-wire [`WORD_WIDTH]   memOutM;
+wire [`WORD_WIDTH]   wbOut;
 wire [`WORD_WIDTH]   aluOutM;
 
 wire                        Regfile_weD;
@@ -67,7 +67,7 @@ id id(
      .instrD(instrD),
      .pcF(pcF),
      .Regfile_weW(Regfile_weW),
-     .memOutM(memOutM),
+     .wbOut(wbOut),
      .writeRegAddrW(writeRegAddrW),
      .aluOutM(aluOutM),
      .forwardAD(forwardAD),
@@ -170,7 +170,7 @@ ex ex(
      .readData1E(readData1E),
      .readData2E(readData2E),
      .aluOutM(aluOutM),
-     .memOutM(memOutM),
+     .wbOut(wbOut),
      .saE(saE),
      .extOpE(extOpE),
      .writeRegAddrE(writeRegAddrE),
@@ -258,4 +258,5 @@ stall_unit stall_unit(
              .flushE(flushE)
            );
 
+assign wbOut=(Regfile_weW==1'b0) ? readDataW :aluOutW;
 endmodule

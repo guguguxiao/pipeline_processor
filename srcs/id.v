@@ -10,7 +10,7 @@ module id (
          input  [`WORD_WIDTH]   pcF,
 
          input                  Regfile_weW,
-         input  [`WORD_WIDTH]   memOutM,
+         input  [`WORD_WIDTH]   wbOut,
          input  [`REG_SIZE]     writeRegAddrW,
 
          input  [`WORD_WIDTH]   aluOutM,
@@ -68,7 +68,7 @@ register_file register_file (
                 .rt(rt),
                 .Regfile_weW(Regfile_weW),
                 .writeRegAddrW(writeRegAddrW),
-                .writeDataW(memOutM),
+                .writeDataW(wbOut),
 
                 .readData1D(readData1),
                 .readData2D(readData2)
