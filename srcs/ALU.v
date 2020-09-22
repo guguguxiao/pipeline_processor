@@ -19,6 +19,7 @@ wire  [`WORD_WIDTH] sltu_res;
 wire  [`WORD_WIDTH] ls_left_res;
 wire  [`WORD_WIDTH] ls_right_res;
 wire  [`WORD_WIDTH] as_right_res;
+wire  [`WORD_WIDTH] lui_res;
 
 assign and_res= SrcA&SrcB;
 assign sub_res= SrcA-SrcB;
@@ -27,11 +28,12 @@ assign xor_res= SrcA^SrcB;
 assign nor_res=~(SrcA | SrcB);
 assign or_res=SrcA | SrcB;
 assign eqb_res=SrcA;
+assign lui_res={SrcA[15:0],16'h0000};
 assign slt_res=((SrcA[31] == 1'b1 && SrcB[31] == 1'b0 ) || (SrcA[31] == 1'b1 && SrcB[31] == 1'b1 && SrcA > SrcB) || (SrcA[31] == 1'b0 && SrcB[31] == 1'b0 && SrcA < SrcB))?
        32'h00000001: `ZERO_WORD;
 assign sltu_res=({1'b0,SrcA} < {1'b0,SrcB}) ? 32'h00000001:`ZERO_WORD;
 
-assign aluOutE = (aluOpE ==`ALU_ADD) ? and_res
+assign aluOutE = (aluOpE ==`ALU_AND) ? and_res
        : (aluOpE ==`ALU_SUB) ? sub_res
        : (aluOpE ==`ALU_ADD) ? add_res
        : (aluOpE ==`ALU_XOR) ? xor_res
@@ -40,6 +42,7 @@ assign aluOutE = (aluOpE ==`ALU_ADD) ? and_res
        : (aluOpE ==`ALU_EQB) ? eqb_res
        : (aluOpE ==`ALU_SLT) ? slt_res
        : (aluOpE ==`ALU_SLTU) ? sltu_res
+       : (aluOpE ==`ALU_LUI) ? lui_res
        : (aluOpE ==`ALU_LS_LEFT) ? (SrcB << (SrcA[4:0]))
        : (aluOpE ==`ALU_LS_RIGHT) ? (SrcB >> (SrcA[4:0]))
        : (aluOpE ==`ALU_AS_RIGHT) ? (({32{SrcB[31]}} << (6'd32-{1'b0,SrcA[4:0]})) | SrcB >> SrcA[4:0])
