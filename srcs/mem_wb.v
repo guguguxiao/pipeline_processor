@@ -10,18 +10,19 @@ module mem_wb(
          input       [`REG_SIZE]  writeRegAddrM,
          input [`REG_SRC_LENGTH]       regSrc_muxM,
          input [`WORD_WIDTH]      jal_targetM,
+         input [`WORD_WIDTH]      pcM,
 
          output reg              Regfile_weW,
          output reg [`WORD_WIDTH]    aluOutW,
          output reg [`REG_SRC_LENGTH]       regSrc_muxW,
          output reg [`WORD_WIDTH]  readDataW,
          output reg  [`REG_SIZE]  writeRegAddrW,
-         output reg [`WORD_WIDTH]      jal_targetW
-
+         output reg [`WORD_WIDTH]      jal_targetW,
+         output reg [`WORD_WIDTH]   pcW
        );
 always @(posedge clk)
   begin
-    if (!rst) 
+    if (!rst)
       begin
         Regfile_weW<= 1'b0;
         aluOutW <= `ZERO_WORD;

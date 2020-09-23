@@ -11,6 +11,7 @@ module ex_mem(
          input      [`WORD_WIDTH]    writeDataE,
          input [`REG_SRC_LENGTH]       regSrc_muxE,
          input [`WORD_WIDTH]      jal_targetE,
+         input [`WORD_WIDTH]         pcE,
 
          output reg                  Regfile_weM,
          output reg                  DataMem_weM,
@@ -18,7 +19,8 @@ module ex_mem(
          output reg [`REG_SRC_LENGTH]       regSrc_muxM,
          output reg [`WORD_WIDTH]    aluOutM,
          output reg [`WORD_WIDTH]    writeDataM,
-         output reg [`WORD_WIDTH]      jal_targetM
+         output reg [`WORD_WIDTH]      jal_targetM,
+         output reg [`WORD_WIDTH]     pcM
        );
 always @(posedge clk)
   begin

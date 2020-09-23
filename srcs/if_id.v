@@ -8,8 +8,10 @@ module if_id(
          input      [`WORD_WIDTH]   instrF,
          input                      stallD,
          input                      flushD,
-         
-         output reg [`WORD_WIDTH]   instrD
+         input      [`WORD_WIDTH]   pcF,
+
+         output reg [`WORD_WIDTH]   instrD,
+         output reg [`WORD_WIDTH]   pcD
        );
 
 always @(posedge clk)
@@ -17,14 +19,17 @@ always @(posedge clk)
     if(!rst || flushD)
       begin
         instrD <= `ZERO_WORD;
+        pcD <= `ZERO_WORD;
       end
     else if(stallD == 1'b1)
       begin
         instrD <= instrD;
+        pcD <= pcD;
       end
     else
       begin
         instrD <= instrF;
+        pcD <= pcF;
       end
   end
 endmodule
