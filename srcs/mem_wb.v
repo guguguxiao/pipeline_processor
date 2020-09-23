@@ -9,12 +9,14 @@ module mem_wb(
          input       [`WORD_WIDTH]   aluOutM,
          input       [`REG_SIZE]  writeRegAddrM,
          input [`REG_SRC_LENGTH]       regSrc_muxM,
+         input [`WORD_WIDTH]      jal_targetM,
 
          output reg              Regfile_weW,
          output reg [`WORD_WIDTH]    aluOutW,
          output reg [`REG_SRC_LENGTH]       regSrc_muxW,
          output reg [`WORD_WIDTH]  readDataW,
-         output reg  [`REG_SIZE]  writeRegAddrW
+         output reg  [`REG_SIZE]  writeRegAddrW,
+         output reg [`WORD_WIDTH]      jal_targetW
 
        );
 always @(posedge clk)
@@ -26,6 +28,7 @@ always @(posedge clk)
         readDataW <= `ZERO_WORD;
         writeRegAddrW <= 5'b00000;
         regSrc_muxW <= 2'b00;
+        jal_targetW <=  `ZERO_WORD;
       end
     else
       begin
@@ -34,6 +37,7 @@ always @(posedge clk)
         readDataW <= readDataM;
         writeRegAddrW <= writeRegAddrM;
         regSrc_muxW <=regSrc_muxM;
+        jal_targetW <=  jal_targetM;
       end
   end
 endmodule

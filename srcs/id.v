@@ -40,7 +40,10 @@ module id (
          output [`REG_SIZE]         rsD,
          output [`REG_SIZE]         rtD,
          output [`REG_SIZE]         rdD,
-         output [15:0]              imm16D
+         output [15:0]              imm16D,
+
+         // NPCÊä³ö
+         output [`WORD_WIDTH]       jal_targetD
        );
 
 wire [5:0] opcode = instrD[`OP];
@@ -85,8 +88,10 @@ NPC NPC(
       .imm26(imm26),
       .npcOp(npcOp),
       .isRsRtEq(isRsRtEq),
-      
-      .npc(npc)
+      .reg1Data(readData1),
+
+      .npc(npc),
+      .jal_target(jal_targetD)
     );
 
 

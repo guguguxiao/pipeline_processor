@@ -16,9 +16,10 @@ module id_ex(
          input wire                             aluSrc2_muxD,
          input wire [`REG_SRC_LENGTH]           regSrc_muxD,
          input wire [`REG_DST_LENGTH]           regDst_muxD,
-         input [`WORD_WIDTH]                    readData1D,
-         input [`WORD_WIDTH]                    readData2D,
+         input wire [`WORD_WIDTH]               readData1D,
+         input wire [`WORD_WIDTH]               readData2D,
          input                                  flushE,
+         input wire [`WORD_WIDTH]               jal_targetD,
 
          output reg [`REG_SIZE]                     rsE,
          output reg [`REG_SIZE]                     rtE,
@@ -33,7 +34,9 @@ module id_ex(
          output reg  [`REG_SRC_LENGTH]          regSrc_muxE,
          output reg  [`REG_DST_LENGTH]          regDst_muxE,
          output reg [`WORD_WIDTH]                   readData1E,
-         output reg [`WORD_WIDTH]                   readData2E
+         output reg [`WORD_WIDTH]                   readData2E,
+         output reg [`WORD_WIDTH]                    jal_targetE
+
        );
 
 always @(posedge clk)
@@ -54,6 +57,7 @@ always @(posedge clk)
         regDst_muxE <= 2'b00;
         readData1E <= `ZERO_WORD;
         readData2E<= `ZERO_WORD;
+        jal_targetE <= `ZERO_WORD;
       end
     else
       begin
@@ -71,6 +75,7 @@ always @(posedge clk)
         regDst_muxE <= regDst_muxD;
         readData1E <= readData1D;
         readData2E <= readData2D;
+        jal_targetE <= jal_targetD;
       end
   end
 
