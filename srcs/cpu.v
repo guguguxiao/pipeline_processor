@@ -24,16 +24,15 @@ module cpu (
          output  [`WORD_WIDTH] debug_wb_rf_wnum,    // 写回级写 regfiles 的目的寄存器号
          output  [`WORD_WIDTH] debug_wb_rf_wdata    // 写回级写 regfiles 的写数据
        );
+wire rst;
+assign rst = resetn;
 
-// 取指使能恒为1，stall的时候PC的值会维持不变
-assign inst_sram_en = 1'b1;
+assign inst_sram_en = rst;
 assign inst_sram_wen = 4'b0000;
 assign inst_sram_wdata = `ZERO_WORD;
 assign data_sram_wen = 4'b1111;
 
-// soc测试的rst与cpu的rst信号相反
-wire rst;
-assign rst = resetn;
+
 
 wire                        stallF;
 wire [`WORD_WIDTH]          npc;
@@ -131,14 +130,14 @@ assign inst_sram_addr = pc_in;
 assign pc_direct = pc_in;
 
 // 延迟pc一个周期才能和传到后面的指令匹配，因为soc相当于是六级流水
-// delay delay (
-//         .clk(clk),
-//         .rst(rst),
-//         .pc_in(pc_in),
+delay delay (
+        .clk(clk),
+        .rst(rst),
+        .pc_in(pc_in),
 
-//         .pc_out(pcF)
-//       );
-assign pcF = pc_in;
+        .pc_out(pcF)
+      );
+// assign pcF = pc_in;
 // 采用soc测试的时候，指令从instr rom读出，要等一个周期
 
 if_id if_id(
