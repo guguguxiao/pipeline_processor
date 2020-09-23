@@ -5,6 +5,7 @@ module cpu (
          input   resetn,                            // 复位信号（低使能
          input   clk,
          input   [5:0] INT,                         // 中断信号（高使能，本实验中可以忽略）
+         
          input   [`WORD_WIDTH] inst_sram_rdata,     // 读取的指令
          input   [`WORD_WIDTH] data_sram_rdata,     // 读取的数据
 
@@ -32,7 +33,7 @@ assign data_sram_wen = 4'b1111;
 
 // soc测试的rst与cpu的rst信号相反
 wire rst;
-assign rst = !resetn;
+assign rst = resetn;
 
 wire                        stallF;
 wire [`WORD_WIDTH]          npc;
@@ -108,6 +109,7 @@ wire     [`WORD_WIDTH]      aluOutW;
 wire [`REG_SRC_LENGTH]      regSrc_muxW;
 
 wire      [`WORD_WIDTH]     pc_in;
+wire      [`WORD_WIDTH]     pc_direct;
 wire      [`WORD_WIDTH]     pcF;
 wire      [`WORD_WIDTH]     pcD;
 wire      [`WORD_WIDTH]     pcE;
@@ -125,6 +127,8 @@ PC PC(
    );
 
 assign inst_sram_addr = pc_in;
+// 直连到npc的线
+assign pc_direct = pc_in;
 
 // 延迟pc一个周期才能和传到后面的指令匹配，因为soc相当于是六级流水
 delay delay (
@@ -141,7 +145,7 @@ if_id if_id(
         .clk(clk),
         .rst(rst),
         .stallD(stallD),
-        .instrF(data_sram_rdata),
+        .instrF(inst_sram_rdata),
         .flushD(flushD),
         .pcF(pcF),
 
@@ -154,6 +158,7 @@ id id(
      .rst(rst),
      .instrD(instrD),
      .pcF(pcF),
+     .pc_direct(pc_direct),
      .Regfile_weW(Regfile_weW),
      .wbOut(wbOut),
      .writeRegAddrW(writeRegAddrW),

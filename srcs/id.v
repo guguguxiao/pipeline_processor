@@ -8,6 +8,7 @@ module id (
          // 其他流水线提供的信号
          input  [`WORD_WIDTH]   instrD,
          input  [`WORD_WIDTH]   pcF,
+         input  [`WORD_WIDTH]   pc_direct,
 
          input                  Regfile_weW,
          input  [`WORD_WIDTH]   wbOut,
@@ -83,7 +84,7 @@ wire [`NPC_OP_LENGTH] npcOp;
 wire isRsRtEq;
 
 NPC NPC(
-      .pc(pcF),
+      .pc(pc_direct),
       .imm16(imm16),
       .imm26(imm26),
       .npcOp(npcOp),

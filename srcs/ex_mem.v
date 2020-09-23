@@ -33,6 +33,7 @@ always @(posedge clk)
         writeDataM <= `ZERO_WORD;
         regSrc_muxM <= 2'b00;
         jal_targetM <= `ZERO_WORD;
+        pcM <= `ZERO_WORD;
       end
     else
       begin
@@ -43,6 +44,7 @@ always @(posedge clk)
         writeDataM <= writeDataE;
         regSrc_muxM <=regSrc_muxE;
         jal_targetM <= jal_targetE;
+        pcM <= pcE;
       end
   end
 

@@ -30,6 +30,7 @@ always @(posedge clk)
         writeRegAddrW <= 5'b00000;
         regSrc_muxW <= 2'b00;
         jal_targetW <=  `ZERO_WORD;
+        pcW <= `ZERO_WORD;
       end
     else
       begin
@@ -39,6 +40,7 @@ always @(posedge clk)
         writeRegAddrW <= writeRegAddrM;
         regSrc_muxW <=regSrc_muxM;
         jal_targetW <=  jal_targetM;
+        pcW <= pcM;
       end
   end
 endmodule
