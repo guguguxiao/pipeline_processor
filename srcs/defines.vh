@@ -6,7 +6,7 @@
 `define INSTR_SIZE 1023:0 // 最大指令条数
 
 `define EXP_PC 32'h00000040
-`define PC_BASE 32'h00000000
+`define PC_BASE 32'hbfc00000
 `define RAMLINE 1048576
 `define DATARAMLINE 1024
 

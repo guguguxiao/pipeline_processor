@@ -40,7 +40,7 @@ always @(posedge clk)
         Regfile_weM<=Regfile_weE;
         DataMem_weM <=DataMem_weE;
         writeRegAddrM <=writeRegAddrE;
-        aluOutM <=aluOutE;
+        aluOutM <= aluOutE;
         writeDataM <= writeDataE;
         regSrc_muxM <=regSrc_muxE;
         jal_targetM <= jal_targetE;

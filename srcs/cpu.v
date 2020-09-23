@@ -131,14 +131,14 @@ assign inst_sram_addr = pc_in;
 assign pc_direct = pc_in;
 
 // 延迟pc一个周期才能和传到后面的指令匹配，因为soc相当于是六级流水
-delay delay (
-        .clk(clk),
-        .rst(rst),
+// delay delay (
+//         .clk(clk),
+//         .rst(rst),
+//         .pc_in(pc_in),
 
-        .pc_in(pc_in),
-        .pc_out(pcF)
-      );
-
+//         .pc_out(pcF)
+//       );
+assign pcF = pc_in;
 // 采用soc测试的时候，指令从instr rom读出，要等一个周期
 
 if_id if_id(
@@ -242,6 +242,7 @@ ex ex(
      .aluOutM(aluOutM),
      .wbOut(wbOut),
      .extOpE(extOpE),
+
      .writeRegAddrE(writeRegAddrE),
      .aluOutE(aluOutE),
      .writeDataE(writeDataE)
@@ -263,15 +264,15 @@ ex_mem ex_mem(
          .DataMem_weM(data_sram_en),
          .writeRegAddrM(writeRegAddrM),
          .regSrc_muxM(regSrc_muxM),
-         .aluOutM(data_sram_addr),
+         .aluOutM(aluOutM),
          .writeDataM(data_sram_wdata),
          .jal_targetM(jal_targetM),
          .pcM(pcM)
        );
 
+assign data_sram_addr = aluOutM;
 
 // MEM
-
 
 mem_wb mem_wb(
          .clk(clk),
