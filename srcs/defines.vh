@@ -29,6 +29,7 @@
 `define NPC_OP_DEFAULT  2'b00     // 默认下一条
 `define NPC_OP_JUMP     2'b01     // J
 `define NPC_OP_BRANCH   2'b10     // BEQ ...
+`define NPC_OP_REG      2'b11     // JR ...
 
 // 数字扩展控制信号
 `define EXT_OP_UNSIGNED 1'b0     // 无符号

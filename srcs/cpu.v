@@ -59,6 +59,10 @@ wire               forwardAD;
 wire               forwardBD;
 wire [`NPC_OP_LENGTH]           npcOpD;
 
+wire [`WORD_WIDTH] jal_targetD;
+wire [`WORD_WIDTH] jal_targetE;
+wire [`WORD_WIDTH] jal_targetM;
+wire [`WORD_WIDTH] jal_targetW;
 id id(
      .clk(clk),
      .rst(rst),
@@ -86,7 +90,9 @@ id id(
      .rsD(rsD),
      .rtD(rtD),
      .rdD(rdD),
-     .imm16D(imm16D)
+     .imm16D(imm16D),
+
+     .jal_targetD(jal_targetD)
    );
 
 wire [`REG_SIZE]                 rsE;
@@ -123,6 +129,7 @@ id_ex id_ex(
         .readData1D(readData1D),
         .readData2D(readData2D),
         .flushE(flushE),
+        .jal_targetD(jal_targetD),
 
         .rsE(rsE),
         .rtE(rtE),
@@ -137,7 +144,8 @@ id_ex id_ex(
         .regSrc_muxE(regSrc_muxE),
         .regDst_muxE(regDst_muxE),
         .readData1E(readData1E),
-        .readData2E(readData2E)
+        .readData2E(readData2E),
+        .jal_targetE(jal_targetE)
       );
 
 wire [1:0]                      forwardAE;
@@ -181,13 +189,15 @@ ex_mem ex_mem(
          .aluOutE(aluOutE),
          .writeDataE(writeDataE),
          .regSrc_muxE(regSrc_muxE),
+         .jal_targetE(jal_targetE),
 
          .Regfile_weM(Regfile_weM),
          .DataMem_weM(DataMem_weM),
          .writeRegAddrM(writeRegAddrM),
          .regSrc_muxM(regSrc_muxM),
          .aluOutM(aluOutM),
-         .writeDataM(writeDataM)
+         .writeDataM(writeDataM),
+         .jal_targetM(jal_targetM)
        );
 
 wire [`WORD_WIDTH] readDataM;
@@ -213,12 +223,14 @@ mem_wb mem_wb(
          .aluOutM(aluOutM),
          .writeRegAddrM(writeRegAddrM),
          .regSrc_muxM(regSrc_muxM),
+         .jal_targetM(jal_targetM),
 
          .Regfile_weW(Regfile_weW),
          .aluOutW(aluOutW),
          .regSrc_muxW(regSrc_muxW),
          .readDataW(readDataW),
-         .writeRegAddrW(writeRegAddrW)
+         .writeRegAddrW(writeRegAddrW),
+         .jal_targetW(jal_targetW)
        );
 
 assign wbOut=(regSrc_muxW == `REG_SRC_ALU) ? aluOutW :
