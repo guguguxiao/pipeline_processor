@@ -17,10 +17,13 @@ module control_unit(
          output wire [`REG_SRC_LENGTH]          regSrc_muxD,
          output wire [`REG_DST_LENGTH]          regDst_muxD
        );
-wire [15:0] controlCode;
+wire [14:0] controlCode;
 assign controlCode =
+       (opcode == `OP_ZEROS && func == `FUNC_ADD) ?    15'b100001000001101 :
+       (opcode == `OP_ADDI)?                           15'b100001000101011 :
        (opcode == `OP_ZEROS && func == `FUNC_ADDU) ?   15'b100001000001101 :
        (opcode == `OP_ADDIU)?                          15'b100001000101011 :
+       (opcode == `OP_ZEROS && func == `FUNC_SUB)?     15'b100010110001101 :
        (opcode == `OP_ZEROS && func == `FUNC_SUBU)?    15'b100010110001101 :
        (opcode == `OP_ZEROS && func == `FUNC_SLT)?     15'b100011000001101 :
        (opcode == `OP_SLTI) ?                          15'b100011000101011 :
@@ -36,9 +39,19 @@ assign controlCode =
        (opcode == `OP_ZEROS && func == `FUNC_XOR)?     15'b100000010001100 :
        (opcode == `OP_XORI)?                           15'b100000010101010 :
 
+       (opcode == `OP_ZEROS && func == `FUNC_SLLV)?    15'b100000110001101:
+       (opcode == `OP_ZEROS && func == `FUNC_SLL)?     15'b100000111001101:
+       (opcode == `OP_ZEROS && func == `FUNC_SRAV)?    15'b100001011001101:
+       (opcode == `OP_ZEROS && func == `FUNC_SRA)?     15'b100001011001101:
+       (opcode == `OP_ZEROS && func == `FUNC_SRLV)?    15'b100001101001101:
+       (opcode == `OP_ZEROS && func == `FUNC_SRL)?     15'b100001101001101:
+
+
        (opcode == `OP_BEQ)?                            15'b001000000000000 :
        (opcode == `OP_BNE)?                            15'b001000000000000 :
        (opcode == `OP_J)?                              15'b000100000000000 :
+       (opcode == `OP_JAL)?                            15'b100100000000110 :
+       (opcode == `OP_ZEROS && func==`FUNC_JR)?        15'b001100000000000 :
 
        (opcode == `OP_SW)?                             15'b010001000100001 :
        (opcode == `OP_LW)?                             15'b100001000110011 :

@@ -103,6 +103,7 @@
 `define FUNC_NOR 6'b100111
 `define FUNC_OR 6'b100101
 `define FUNC_XOR 6'b100110
+`define FUNC_JR  6'b001000
 
 // ALU²Ù×÷Âë
 `define ALU_OP_LENGTH       3:0
