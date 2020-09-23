@@ -30,7 +30,7 @@ wire [`WORD_WIDTH]              data2_tmp;
 wire [`WORD_WIDTH] extend_immE = extOpE ? {{16{imm16E[15]}},imm16E[15:0]}
      :{{16{1'b0}}, imm16E[15:0]};
 
-wire [`WORD_WIDTH] extend_saE = {{27{1'b0}},imm16E[4:0]};
+wire [`WORD_WIDTH] extend_saE = {{27{1'b0}},imm16E[10:6]};
 assign data1_tmp = (forwardAE == 2'b01) ? aluOutM :
        (forwardAE == 2'b10) ? wbOut :
        readData1E;
@@ -50,6 +50,7 @@ ALU ALU(
 // Ð´¼Ä´æÆ÷Ñ¡Ôñ
 assign writeRegAddrE = (regDst_muxE == `REG_DST_RT) ? rtE :
        (regDst_muxE == `REG_DST_RD) ? rdE:
+       (regDst_muxE == `REG_DST_JAL) ? 5'b11111:
        5'b00000;
 
 endmodule
