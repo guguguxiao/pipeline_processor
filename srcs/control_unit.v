@@ -50,7 +50,7 @@ assign controlCode =
        (opcode == `OP_BEQ)?                            15'b001000000000000 :
        (opcode == `OP_BNE)?                            15'b001000000000000 :
        (opcode == `OP_J)?                              15'b000100000000000 :
-       (opcode == `OP_JAL)?                            15'b100100000000110 :
+       (opcode == `OP_JAL)?                            15'b100100000011110 :
        (opcode == `OP_ZEROS && func==`FUNC_JR)?        15'b001100000000000 :
 
        (opcode == `OP_SW)?                             15'b010001000100001 :

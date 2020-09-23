@@ -290,6 +290,7 @@ mem_wb mem_wb(
 
 assign wbOut=(regSrc_muxW == `REG_SRC_ALU) ? aluOutW :
        (regSrc_muxW == `REG_SRC_MEM) ? readDataW :
+       (regSrc_muxW==`REG_SRC_JAL) ? jal_targetW :
        `ZERO_WORD;
 
 assign debug_wb_rf_wnum = writeRegAddrW;

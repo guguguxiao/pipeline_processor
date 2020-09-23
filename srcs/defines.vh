@@ -48,12 +48,14 @@
 `define REG_SRC_DEFAULT 2'b00     // Register default value
 `define REG_SRC_ALU     2'b01     // Register write source: ALU
 `define REG_SRC_MEM     2'b10     // Register write source: Data Memory
+`define REG_SRC_JAL     2'b11      // Register write source: jar target
 
 // RegDst Control Signals
 `define REG_DST_LENGTH  1:0
 `define REG_DST_DEFAULT 2'b00      // Register write destination: default
 `define REG_DST_RT      2'b01      // Register write destination: rt
 `define REG_DST_RD      2'b10      // Register write destination: rd
+`define REG_DST_JAL     2'b11      // Register write destination: 31
 
 
 // opcode
