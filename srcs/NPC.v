@@ -22,6 +22,6 @@ assign npc = (npcOp == `NPC_OP_JUMP) ? {pc_4[31:28], imm26, 2'b00} :            
        (npcOp == `NPC_OP_REG) ? reg1Data :                                                 // ps = [rs]
        pc_4;                                                                               //  pc + 4
 
-assign jal_target = {pc_4[31:28], imm26, 2'b00};
+assign jal_target =pc;
 
 endmodule
