@@ -44,7 +44,9 @@ module id (
          output [15:0]              imm16D,
 
          // NPC输出
-         output [`WORD_WIDTH]       jal_targetD
+         output [`WORD_WIDTH]       jal_targetD,
+
+         output                     inst_sram_en
        );
 
 wire [5:0] opcode = instrD[`OP];
@@ -83,22 +85,28 @@ wire [`NPC_OP_LENGTH] npcOp;
 
 wire isRsRtEq;
 
+wire isJump;
+
+// 数据进入branch前进行的前递
+wire [`WORD_WIDTH] reg1_data = (forwardAD == 1'b1) ? aluOutM : readData1;
+wire [`WORD_WIDTH] reg2_data = (forwardBD == 1'b1) ? aluOutM : readData2;
+
 NPC NPC(
       .pc(pc_direct),
       .imm16(imm16),
       .imm26(imm26),
       .npcOp(npcOp),
       .isRsRtEq(isRsRtEq),
-      .reg1Data(readData1),
+      .reg1Data(reg1_data),
 
       .npc(npc),
-      .jal_target(jal_targetD)
+      .jal_target(jal_targetD),
+      .isJump(isJump)
     );
 
+assign inst_sram_en = rst & (!isJump);
 
-// 数据进入branch前进行的前递
-wire [`WORD_WIDTH] reg1_data = (forwardAD == 1'b1) ? aluOutM : readData1;
-wire [`WORD_WIDTH] reg2_data = (forwardBD == 1'b1) ? aluOutM : readData2;
+
 
 branch_judge branch_judge(
                .reg1_data(reg1_data),
@@ -107,13 +115,15 @@ branch_judge branch_judge(
                .isRsRtEq(isRsRtEq)
              );
 
+wire _Regfile_weD;
+
 control_unit control_unit (
                .rst(rst),
                .opcode(opcode),
                .func(func),
                .isRsRtEq(isRsRtEq),
 
-               .Regfile_weD(Regfile_weD),
+               .Regfile_weD(_Regfile_weD),
                .DataMem_weD(DataMem_weD),
                .extOpD(extOpD),
                .npcOp(npcOp),
@@ -123,6 +133,9 @@ control_unit control_unit (
                .regSrc_muxD(regSrc_muxD),
                .regDst_muxD(regDst_muxD)
              );
+
+// nop的regfile也不能为1
+assign Regfile_weD = _Regfile_weD && (instrD != `ZERO_WORD);
 
 assign npcOpD = npcOp;
 

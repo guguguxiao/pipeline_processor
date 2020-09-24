@@ -23,13 +23,15 @@
 `define SA          10:6
 
 // 控制信号
+`define CTRL_CODE_LEN   15:0
 
 // 跳转控制信号
-`define NPC_OP_LENGTH   1:0
-`define NPC_OP_DEFAULT  2'b00     // 默认下一条
-`define NPC_OP_JUMP     2'b01     // J
-`define NPC_OP_BRANCH   2'b10     // BEQ ...
-`define NPC_OP_REG      2'b11     // JR ...
+`define NPC_OP_LENGTH   2:0
+`define NPC_OP_DEFAULT  3'b000     // 默认下一条
+`define NPC_OP_JUMP     3'b001     // J
+`define NPC_OP_BEQ      3'b010     // BEQ ...
+`define NPC_OP_REG      3'b011     // JR ...
+`define NPC_OP_BNE      3'b100
 
 // 数字扩展控制信号
 `define EXT_OP_UNSIGNED 1'b0     // 无符号

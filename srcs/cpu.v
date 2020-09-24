@@ -27,7 +27,7 @@ module cpu (
 wire rst;
 assign rst = resetn;
 
-assign inst_sram_en = rst;
+// assign inst_sram_en = rst;
 assign inst_sram_wen = 4'b0000;
 assign inst_sram_wdata = `ZERO_WORD;
 assign data_sram_wen = 4'b1111;
@@ -107,7 +107,7 @@ wire      [`REG_SIZE]       writeRegAddrW;
 wire     [`WORD_WIDTH]      aluOutW;
 wire [`REG_SRC_LENGTH]      regSrc_muxW;
 
-wire      [`WORD_WIDTH]     pc_in;
+wire      [`WORD_WIDTH]     pcP;
 wire      [`WORD_WIDTH]     pc_direct;
 wire      [`WORD_WIDTH]     pcF;
 wire      [`WORD_WIDTH]     pcD;
@@ -122,22 +122,22 @@ PC PC(
      .stallF(stallF),
      .npc(npc),
 
-     .pc(pc_in)
+     .pc(pcP)
    );
 
-assign inst_sram_addr = pc_in;
+assign inst_sram_addr = {3'b000, pcP[28:0]};
 // 直连到npc的线
-assign pc_direct = pc_in;
+assign pc_direct = pcP;
 
 // 延迟pc一个周期才能和传到后面的指令匹配，因为soc相当于是六级流水
 delay delay (
         .clk(clk),
         .rst(rst),
-        .pc_in(pc_in),
+        .pcP(pcP),
 
-        .pc_out(pcF)
+        .pcF(pcF)
       );
-// assign pcF = pc_in;
+// assign pcF = pcP;
 // 采用soc测试的时候，指令从instr rom读出，要等一个周期
 
 if_id if_id(
@@ -182,7 +182,8 @@ id id(
      .rdD(rdD),
      .imm16D(imm16D),
 
-     .jal_targetD(jal_targetD)
+     .jal_targetD(jal_targetD),
+     .inst_sram_en(inst_sram_en)
    );
 
 
@@ -260,7 +261,7 @@ ex_mem ex_mem(
          .pcE(pcE),
 
          .Regfile_weM(Regfile_weM),
-         .DataMem_weM(data_sram_en),
+         .DataMem_weM(DataMem_weM),
          .writeRegAddrM(writeRegAddrM),
          .regSrc_muxM(regSrc_muxM),
          .aluOutM(aluOutM),
@@ -269,9 +270,9 @@ ex_mem ex_mem(
          .pcM(pcM)
        );
 
-assign data_sram_addr = aluOutM;
-
-// MEM
+// mem
+assign data_sram_we = DataMem_weM;
+assign data_sram_addr = {3'b000, aluOutM[28:0]};
 
 mem_wb mem_wb(
          .clk(clk),

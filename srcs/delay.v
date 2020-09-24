@@ -5,20 +5,20 @@
 module delay (
          input                    clk,
          input                    rst,
-         input     [`WORD_WIDTH]  pc_in,
+         input     [`WORD_WIDTH]  pcP,
 
-         output reg [`WORD_WIDTH] pc_out
+         output reg [`WORD_WIDTH] pcF
        );
 
 always @(posedge clk)
   begin
     if (!rst)
       begin
-        pc_out <= `PC_BASE;
+        pcF <= `PC_BASE;
       end
     else
       begin
-        pc_out <= pc_in;
+        pcF <= pcP;
       end
   end
 
